@@ -89,6 +89,65 @@ package kotlin {
 }
 
 
+package Model {
+
+    class MonJoueur {
+    -nom: String
+    -estActif: Boolean
+    -id: Int
+    -cle: String
+    +poserQuestion(question: Question): Reponse
+    +eliminerPersonnage(personnage: Personnage)
+    +devinerPersonnage(personnage: Personnage): Boolean
+  }
+
+  class Partie {
+    -id: String
+    -etat: String
+    +demarrerPartie()
+    +terminerPartie()
+    +changerJoueurActif()
+  }
+
+  class Grille {
+    +activerPersonnage(personnage: Personnage)
+    +desactiverPersonnage(personnage: Personnage)
+    +getPersonnages(): Array
+  }
+
+  class MonPersonnage {
+    -nom: String
+    -prenom: String
+    -url: String
+  }
+
+  class Question {
+    -texte: String
+    +getTexte()
+  }
+
+  class Reponse {
+    -valeur: Boolean
+    +getValeur()
+  }
+
+  ' Associations in Model
+  Partie "1" --> "2\n -joueurs" MonJoueur : contient
+  'MonJoueur "1" --> "0..*" Question : pose
+  Question "1" --> "1" Reponse : possede
+  Partie "1" --> "2\n -grilles" Grille : utilise
+  Grille "0..1" --> "24\n -personnages" MonPersonnage : contient
+  Partie "1" --> "2 -personnagesCibles" MonPersonnage : cible
+
+}
+
+' Associations out Model
+Partie --> QuiEstCeClient : état via requeteEtatPartie
+Joueur --> QuiEstCeClient : création via requeteCreationJoueur
+Grille --> QuiEstCeClient : actions via\n requeteChoixPersonnage,\n requeteGrilleJoueur
+Question --> QuiEstCeClient : poserQuestion via requetePoserQuestion
+Reponse --> QuiEstCeClient : réponse via requeteDonnerReponse
+
+
 
 @enduml
-
