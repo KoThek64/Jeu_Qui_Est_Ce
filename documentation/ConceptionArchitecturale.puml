@@ -1,0 +1,94 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "Library" {
+
+  class QuiEstCeClient {
+    +initQuiEstCeClient(hote: String, port: Int)
+    +requeteEssai(): String
+    +requeteCreationJoueur(nom: String, prenom: String): IdentificationJoueur
+    +requeteJoueurs(): List<Int>
+    +requeteJoueur(idJoueur: Int): Joueur
+    +requeteCreationPartie(idJoueur: Int, cleJoueur: String): Int
+    +requeteEtatPartie(idPartie: Int): EtatPartie
+    +requeteListeParties(): List<Int>
+    +requeteListePartiesCreees(): List<Int>
+    +requeteListePartiesTerminees(): List<Int>
+    +requeteRejoindrePartie(idPartie: Int, idJoueur: Int, cleJoueur: String): EtatPartie
+    +requeteChoixPersonnage(idPartie: Int, idJoueur: Int, cleJoueur: String, ligne: Int, colonne: Int): EtatPartie
+    +requeteGrilleJoueur(idPartie: Int, idJoueur: Int): List<List<Personnage>>
+    +requetePoserQuestion(idPartie: Int, idJoueur: Int, cleJoueur: String, question: String): EtatPartie
+    +requeteDonnerReponse(idPartie: Int, idJoueur: Int, cleJoueur: String, reponse: String): EtatPartie
+    +requeteChercherEncore(idPartie: Int, idJoueur: Int, cleJoueur: String): EtatPartie
+    +requeteTrouve(idPartie: Int, idJoueur: Int, cleJoueur: String, ligne: Int, colonne: Int): Boolean
+  }
+
+  package "exceptions" {
+
+        exception QuiEstCeException
+
+    }
+
+  package "data" {
+
+        class EtatPartie {
+            +idJoueur1: Int {readOnly}
+            +idJoueur2: Int {readOnly}
+            +etape: ETAPE {readOnly}
+            +idJoueurQuestionCourante: Int
+            +questionEnCours: String {readOnly}
+            +idJoueurReponseCourante: Int
+            +reponseEnCours: String {readOnly}
+        }
+
+        enum ETAPE {
+            CREE
+            INITIALISATION
+            ATTENTE_QUESTION
+            ATTENTE_REPONSE
+            ATTENTE_REFLEXION
+            TERMINEE
+        }
+
+        class Personnage {
+            +nom: String {readOnly}
+            +prenom: String {readOnly}
+            +url: String {readOnly}
+        }
+
+        class IdentificationJoueur {
+            +id: Int {readOnly}
+            +cle: String {readOnly}
+        }
+
+        class Joueur {
+            +nom: String {readOnly}
+            +prenom: String {readOnly}
+        }
+
+    }
+
+  ' Associations in Library
+  QuiEstCeClient ..> exceptions : <<throws>>
+  QuiEstCeClient ..> Joueur : <<uses>>
+  QuiEstCeClient ..> EtatPartie : <<uses>>
+  EtatPartie "*" --> "1" ETAPE : est à l'étape
+  QuiEstCeClient ..> Personnage : <<uses>>
+  QuiEstCeClient ..> IdentificationJoueur : <<uses>>
+
+
+}
+
+
+package kotlin {
+
+    exception IllegalArgumentException
+
+    QuiEstCeClient ..> IllegalArgumentException : <<throws>>
+
+}
+
+
+
+@enduml
+
