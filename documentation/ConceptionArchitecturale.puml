@@ -96,6 +96,7 @@ package Model {
     -estActif: Boolean
     -id: Int
     -cle: String
+    <<create>> MonJoueur(nom: String, id: Int, cle: String)
     +poserQuestion(question: Question): Reponse
     +eliminerPersonnage(personnage: Personnage)
     +devinerPersonnage(personnage: Personnage): Boolean
@@ -104,12 +105,14 @@ package Model {
   class Partie {
     -id: String
     -etat: String
+    <<create>> Partie(id: Int)
     +demarrerPartie()
     +terminerPartie()
     +changerJoueurActif()
   }
 
   class Grille {
+    <<create>> Grille()
     +activerPersonnage(personnage: Personnage)
     +desactiverPersonnage(personnage: Personnage)
     +getPersonnages(): Array
@@ -118,16 +121,19 @@ package Model {
   class MonPersonnage {
     -nom: String
     -prenom: String
-    -url: String
+    -etat: Boolean
+    <<create>> Personnage(nom: String, prenom: String)
   }
 
   class Question {
     -texte: String
+    <<create>> Question(texte: String)
     +getTexte()
   }
 
   class Reponse {
     -valeur: Boolean
+    <<create>> Reponse(val: Boolean)
     +getValeur()
   }
 
@@ -143,7 +149,7 @@ package Model {
 
 ' Associations out Model
 Partie --> QuiEstCeClient : état via requeteEtatPartie
-Joueur --> QuiEstCeClient : création via requeteCreationJoueur
+MonJoueur --> QuiEstCeClient : création via requeteCreationJoueur
 Grille --> QuiEstCeClient : actions via\n requeteChoixPersonnage,\n requeteGrilleJoueur
 Question --> QuiEstCeClient : poserQuestion via requetePoserQuestion
 Reponse --> QuiEstCeClient : réponse via requeteDonnerReponse
