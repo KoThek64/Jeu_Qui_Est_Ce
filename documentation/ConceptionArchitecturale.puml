@@ -89,22 +89,11 @@ package kotlin {
 }
 
 
-package Model {
-
-    class MonJoueur {
-    -nom: String
-    -estActif: Boolean
-    -id: Int
-    -cle: String
-    <<create>> MonJoueur(nom: String, id: Int, cle: String)
-    +poserQuestion(question: Question): Reponse
-    +eliminerPersonnage(personnage: Personnage)
-    +devinerPersonnage(personnage: Personnage): Boolean
-  }
+package Model <<Client>> {
 
   class Partie {
     -id: String
-    -etat: String
+    -etat: EtatPartie
     <<create>> Partie(id: Int)
     +demarrerPartie()
     +terminerPartie()
@@ -112,18 +101,14 @@ package Model {
   }
 
   class Grille {
+    -personnages: List<List<Personnage>>
     <<create>> Grille()
     +activerPersonnage(personnage: Personnage)
     +desactiverPersonnage(personnage: Personnage)
-    +getPersonnages(): Array
+    +getPersonnages(): List<List<Personnage>>
   }
 
-  class MonPersonnage {
-    -nom: String
-    -prenom: String
-    -etat: Boolean
-    <<create>> Personnage(nom: String, prenom: String)
-  }
+
 
   class Question {
     -texte: String
@@ -132,24 +117,24 @@ package Model {
   }
 
   class Reponse {
-    -valeur: Boolean
-    <<create>> Reponse(val: Boolean)
+    -valeur: String
+    <<create>> Reponse(val: String)
     +getValeur()
   }
 
   ' Associations in Model
-  Partie "1" --> "2\n -joueurs" MonJoueur : contient
+  'Partie "1" --> "2\n -joueurs" MonJoueur : contient
   'MonJoueur "1" --> "0..*" Question : pose
   Question "1" --> "1" Reponse : possede
   Partie "1" --> "2\n -grilles" Grille : utilise
-  Grille "0..1" --> "24\n -personnages" MonPersonnage : contient
-  Partie "1" --> "2 -personnagesCibles" MonPersonnage : cible
+  'Grille "0..1" --> "24\n -personnages" MonPersonnage : contient
+  'Partie "1" --> "2 -personnagesCibles" MonPersonnage : cible
 
 }
 
 ' Associations out Model
 Partie --> QuiEstCeClient : état via requeteEtatPartie
-MonJoueur --> QuiEstCeClient : création via requeteCreationJoueur
+'MonJoueur --> QuiEstCeClient : création via requeteCreationJoueur
 Grille --> QuiEstCeClient : actions via\n requeteChoixPersonnage,\n requeteGrilleJoueur
 Question --> QuiEstCeClient : poserQuestion via requetePoserQuestion
 Reponse --> QuiEstCeClient : réponse via requeteDonnerReponse
