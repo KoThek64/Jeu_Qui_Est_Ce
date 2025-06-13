@@ -1,3 +1,3 @@
 package Modele
 
-class Partie
+class Personnage

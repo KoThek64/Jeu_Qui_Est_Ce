@@ -20,7 +20,7 @@ dependencies {
     implementation("io.ktor:ktor-client-json:3.1.3")
     implementation("io.ktor:ktor-client-content-negotiation:3.1.3")
     implementation("ch.qos.logback:logback-classic:1.5.18")
-    implementation(files("libs/sae-qui-est-ce-client-1.0.jar"))
+    implementation(files("libs/sae-qui-est-ce-client-1.1.jar"))
 
 }
 
