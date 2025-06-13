@@ -2,13 +2,20 @@ package Modele
 
 import info.but1.sae2025.data.EtatPartie
 
-class Partie(idPartie: Int){
-    private var id : String = idPartie.toString()
-    private lateinit var etat : EtatPartie
+class Partie(idPartie: Int) {
 
-    fun demarrerPartie(){
+    private var id: Int = idPartie
+    private lateinit var etat: EtatPartie
+
+    init {
+    }
+
+    fun demarrerPartie() {
         TODO()
     }
+
+    fun getEtat(): EtatPartie = etat
+
 
     fun terminerPartie(){
         TODO()
