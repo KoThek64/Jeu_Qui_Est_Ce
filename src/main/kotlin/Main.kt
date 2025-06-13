@@ -1,13 +1,12 @@
-import Vue.StartingVue
+import Vue.VueCreateJoinGame
 import info.but1.sae2025.QuiEstCeClient
 import javafx.application.Application
 import javafx.scene.Scene
 import javafx.stage.Stage
-import kotlin.random.Random
 
 class MainQuiEstCe: Application() {
     override fun start(stage: Stage) {
-        val vue = StartingVue()
+        val vue = VueCreateJoinGame()
 
         val scene = Scene(vue, 1920.0, 1080.0)
         stage.title = "Qui-est-ce ?"
