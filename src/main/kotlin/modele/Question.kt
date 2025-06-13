@@ -1,4 +1,4 @@
-package Modele
+package modele
 
 class Question(texte : String){
     private var texte : String = texte
