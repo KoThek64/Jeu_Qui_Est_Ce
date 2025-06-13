@@ -15,13 +15,6 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 gradle-app.setting
 
-# Kotlin specific
-*.class
-*.jar
-*.war
-*.ear
-*.kjsm
-
 # Logs
 *.log
 
