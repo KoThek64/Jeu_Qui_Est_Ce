@@ -1,12 +1,13 @@
-import Vue.VueCreateJoinGame
+import vue.VueCreateJoinGame
 import info.but1.sae2025.QuiEstCeClient
 import javafx.application.Application
 import javafx.scene.Scene
 import javafx.stage.Stage
+import vue.VueCreatePlayer
 
 class MainQuiEstCe: Application() {
     override fun start(stage: Stage) {
-        val vue = VueCreateJoinGame()
+        val vue = VueCreatePlayer()
 
         val scene = Scene(vue, 1920.0, 1080.0)
         stage.title = "Qui-est-ce ?"
