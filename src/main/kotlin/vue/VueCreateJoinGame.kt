@@ -1,4 +1,4 @@
-package Vue
+package vue
 
 import javafx.event.ActionEvent
 import javafx.event.EventHandler

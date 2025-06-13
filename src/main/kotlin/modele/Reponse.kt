@@ -1,4 +1,4 @@
-package Modele
+package modele
 
 class Reponse(valeur : String) {
     private val valeur: String
