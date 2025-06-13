@@ -1,3 +1,0 @@
-package Modele
-
-class Personnage
