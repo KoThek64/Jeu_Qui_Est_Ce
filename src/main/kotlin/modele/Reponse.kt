@@ -1,9 +1,15 @@
 package modele
 
-class Reponse(valeur : String){
-    private val valeur : String = valeur
+class Reponse(valeur : String) {
+    private val valeur: String
+    private val question: Question
 
-    fun getValeur(){
+    init {
+        this.valeur = valeur
+        this.question = Question()
+    }
+
+    fun getValeur() {
         println(this.valeur)
     }
 }
