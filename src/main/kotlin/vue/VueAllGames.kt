@@ -23,7 +23,7 @@ class VueAllGames : BorderPane() {
 
     private var header : GridPane
     private var body : GridPane
-    val games : TextField
+//    val games : TextField
     val label : Label = Label("Entrez l'ID de la partie que vous voulez rejoindre")
     val chooseGameID : TextField = TextField("")
     val boutonValider : Button = Button("")
