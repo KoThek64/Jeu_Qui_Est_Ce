@@ -24,8 +24,10 @@ import javafx.scene.text.FontWeight
 
 class VueCreatePlayer : BorderPane() {
 
-    private val header : GridPane
-    private val body : GridPane
+    val header : GridPane
+    val body : GridPane
+    val createAccount: Button
+    val alreadyAccount: Button
 
     init {
         this.header = GridPane()
@@ -88,27 +90,27 @@ class VueCreatePlayer : BorderPane() {
         // Debut body
         body.alignment = Pos.CENTER
 
-        val prenomButton = TextField()
-        prenomButton.style = """
+        val prenom = TextField()
+        prenom.style = """
             -fx-background-color: white;
                 -fx-background-radius: 20;
                 -fx-font-size: 18px;
                 -fx-padding: 10px 15px;
                 -fx-alignment: center;
         """.trimIndent()
-        prenomButton.promptText = "prénom"
+        prenom.promptText = "prénom"
 
-        val nomButton = TextField()
-        nomButton.style = """
+        val nom = TextField()
+        nom.style = """
             -fx-background-color: white;
                 -fx-background-radius: 20;
                 -fx-font-size: 18px;
                 -fx-padding: 10px 15px;
                 -fx-alignment: center;
         """.trimIndent()
-        nomButton.promptText = "nom"
+        nom.promptText = "nom"
 
-        val createAccount = Button("Créer un compte").apply {
+        createAccount = Button("Créer un compte").apply {
             style = """
                 -fx-background-color: #FFFFFF;
                 -fx-background-radius: 30;
@@ -116,9 +118,31 @@ class VueCreatePlayer : BorderPane() {
                 -fx-font-weight: bold;
                 -fx-padding: 10px 20px;
             """.trimIndent()
+
+            val defaultStyle = this.style
+
+            onMouseEntered = EventHandler {
+                style = """
+                    $defaultStyle
+                    -fx-background-color: #EEEEEE;
+                """.trimIndent()
+            }
+            onMouseExited = EventHandler {
+                style = defaultStyle
+            }
+            onMousePressed = EventHandler {
+                style = """
+                    $defaultStyle
+                    -fx-background-color: #DDDDDD;
+                """.trimIndent()
+            }
+            onMouseReleased = EventHandler {
+                style = defaultStyle
+            }
+
         }
 
-        val alreadyAccount = Button("J'ai déjà un compte").apply {
+        alreadyAccount = Button("J'ai déjà un compte").apply {
             style = """
                 -fx-background-color: #FFFFFF;
                 -fx-background-radius: 30;
@@ -126,11 +150,32 @@ class VueCreatePlayer : BorderPane() {
                 -fx-font-weight: bold;
                 -fx-padding: 10px 20px;
             """.trimIndent()
+
+            val defaultStyle = this.style
+
+            onMouseEntered = EventHandler {
+                style = """
+                    $defaultStyle
+                    -fx-background-color: #EEEEEE;
+                """.trimIndent()
+            }
+            onMouseExited = EventHandler {
+                style = defaultStyle
+            }
+            onMousePressed = EventHandler {
+                style = """
+                    $defaultStyle
+                    -fx-background-color: #DDDDDD;
+                """.trimIndent()
+            }
+            onMouseReleased = EventHandler {
+                style = defaultStyle
+            }
         }
 
         val bodyButtons = VBox().apply {
             alignment = Pos.CENTER
-            children.addAll(prenomButton, nomButton, alreadyAccount, createAccount)
+            children.addAll(prenom, nom, alreadyAccount, createAccount)
             spacing = 30.0
         }
 
@@ -148,5 +193,4 @@ class VueCreatePlayer : BorderPane() {
     fun fixeControleurBouton(bouton: Button, action: EventHandler<ActionEvent>) {
         bouton.onAction = action
     }
-
 }

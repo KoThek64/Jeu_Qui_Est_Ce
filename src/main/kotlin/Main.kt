@@ -7,7 +7,8 @@ import vue.VueCreatePlayer
 
 class MainQuiEstCe: Application() {
     override fun start(stage: Stage) {
-        val vue = VueCreatePlayer()
+        val vue = VueCreateJoinGame()
+        // vue.fixeControleurBouton()
 
         val scene = Scene(vue, 1920.0, 1080.0)
         stage.title = "Qui-est-ce ?"
