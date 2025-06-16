@@ -11,7 +11,7 @@ class Grille(personnages : List<List<Personnage>>) {
         this.personnages = listOf<List<Personnage>>()
     }
 
-    fun genererGrille(idPartie: Int, idJoueur: Int, client: QuiEstCeClient){
+    fun recupererGrille(idPartie: Int, idJoueur: Int, client: QuiEstCeClient){
         this.personnages = client.requeteGrilleJoueur(idPartie, idJoueur)
     }
 
