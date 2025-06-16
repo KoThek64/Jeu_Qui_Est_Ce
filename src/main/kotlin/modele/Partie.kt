@@ -4,6 +4,7 @@ import info.but1.sae2025.QuiEstCeClient
 import info.but1.sae2025.data.EtatPartie
 import info.but1.sae2025.data.Personnage
 
+<<<<<<< HEAD
 class Partie(private val client: QuiEstCeClient, val id: Int) {
 
     // L'état de la partie, qui sera rempli via la requête au client.
@@ -29,6 +30,25 @@ class Partie(private val client: QuiEstCeClient, val id: Int) {
     private fun chargerLesGrilles() {
         grilles[0] = client.requeteGrilleJoueur(this.id, this.etat.idJoueur1)
         grilles[1] = client.requeteGrilleJoueur(this.id, this.etat.idJoueur2)
+=======
+class Partie(idPartie: Int) {
+
+    private var id: Int = idPartie
+    private lateinit var etat: EtatPartie
+
+    init {
+    }
+
+    fun demarrerPartie() {
+        TODO()
+    }
+
+    fun getEtat(): EtatPartie = etat
+
+
+    fun terminerPartie(){
+        TODO()
+>>>>>>> dcedb1f53411b82cfa831e92744a068613066abe
     }
 
     // ... autres fonctions de jeu à implémenter, comme :

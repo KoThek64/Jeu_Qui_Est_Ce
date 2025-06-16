@@ -23,6 +23,9 @@ class VueCreateJoinGame: BorderPane() {
 
     private val header : GridPane
     private val body : GridPane
+    val createGameButton: Button
+    val joinGameButton: Button
+    val rulesButton: Button
 
     init {
         this.header = GridPane()
@@ -86,7 +89,7 @@ class VueCreateJoinGame: BorderPane() {
         body.rowConstraints.addAll(row1Body, row2Body, row3Body)
         body.alignment = Pos.CENTER
 
-        val createGameButton = Button("Créer une partie").apply {
+        createGameButton = Button("Créer une partie").apply {
             style = """
                 -fx-background-color: #4BD7D7;
                 -fx-background-radius: 30;
@@ -96,9 +99,30 @@ class VueCreateJoinGame: BorderPane() {
                 -fx-padding: 15px 40px;
                 -fx-effect: dropshadow(gaussian, rgba(75, 215, 215, 0.6), 20, 0, 0, 0);
             """.trimIndent()
+
+            val defaultStyle = this.style
+
+            onMouseEntered = EventHandler {
+                style = """
+                    $defaultStyle
+                    -fx-background-color: #999999;
+                """.trimIndent()
+            }
+            onMouseExited = EventHandler {
+                style = defaultStyle
+            }
+            onMousePressed = EventHandler {
+                style = """
+                    $defaultStyle
+                    -fx-background-color: #AAAAAA;
+                """.trimIndent()
+            }
+            onMouseReleased = EventHandler {
+                style = defaultStyle
+            }
         }
 
-        val joinGameButton = Button("Rejoindre une partie").apply {
+        joinGameButton = Button("Rejoindre une partie").apply {
             style = """
                 -fx-background-color: #4BD7D7;
                 -fx-background-radius: 30;
@@ -108,9 +132,30 @@ class VueCreateJoinGame: BorderPane() {
                 -fx-padding: 15px 40px;
                 -fx-effect: dropshadow(gaussian, rgba(75, 215, 215, 0.6), 20, 0, 0, 0);
             """.trimIndent()
+
+            val defaultStyle = this.style
+
+            onMouseEntered = EventHandler {
+                style = """
+                    $defaultStyle
+                    -fx-background-color: #999999;
+                """.trimIndent()
+            }
+            onMouseExited = EventHandler {
+                style = defaultStyle
+            }
+            onMousePressed = EventHandler {
+                style = """
+                    $defaultStyle
+                    -fx-background-color: #AAAAAA;
+                """.trimIndent()
+            }
+            onMouseReleased = EventHandler {
+                style = defaultStyle
+            }
         }
 
-        val rulesButton = Button("Règles").apply {
+        rulesButton = Button("Règles").apply {
             style = """
                 -fx-background-color: #E0E0E0;
                 -fx-background-radius: 20;
@@ -120,6 +165,27 @@ class VueCreateJoinGame: BorderPane() {
                 -fx-padding: 10px 25px;
                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 0);
             """.trimIndent()
+
+            val defaultStyle = this.style
+
+            onMouseEntered = EventHandler {
+                style = """
+                    $defaultStyle
+                    -fx-background-color: #EEEEEE;
+                """.trimIndent()
+            }
+            onMouseExited = EventHandler {
+                style = defaultStyle
+            }
+            onMousePressed = EventHandler {
+                style = """
+                    $defaultStyle
+                    -fx-background-color: #DDDDDD;
+                """.trimIndent()
+            }
+            onMouseReleased = EventHandler {
+                style = defaultStyle
+            }
         }
 
         val topButtonsHBox = HBox(20.0).apply {
