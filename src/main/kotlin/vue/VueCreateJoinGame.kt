@@ -15,9 +15,12 @@ import javafx.scene.layout.GridPane
 import javafx.scene.layout.HBox
 import javafx.scene.layout.Priority
 import javafx.scene.layout.RowConstraints
+import javafx.scene.layout.VBox
 import javafx.scene.paint.Color
 import javafx.scene.text.Font
 import javafx.scene.text.FontWeight
+import javafx.scene.text.Text
+import javafx.scene.text.TextAlignment
 
 class VueCreateJoinGame: BorderPane() {
 
@@ -26,6 +29,7 @@ class VueCreateJoinGame: BorderPane() {
     val createGameButton: Button
     val joinGameButton: Button
     val rulesButton: Button
+    val backButton: Button
 
     init {
         this.header = GridPane()
@@ -34,16 +38,6 @@ class VueCreateJoinGame: BorderPane() {
         this.style = "-fx-background-color: #DDA0DD"
 
         // Debut header
-        val col1 = ColumnConstraints()
-        col1.hgrow = Priority.SOMETIMES
-        val col2 = ColumnConstraints()
-        col2.hgrow = Priority.ALWAYS
-        col2.halignment = HPos.CENTER
-        val col3 = ColumnConstraints()
-        col3.hgrow = Priority.SOMETIMES
-
-        header.columnConstraints.addAll(col1, col2, col3)
-
         header.alignment = Pos.CENTER
 
         val labelTop = Label("QUI-EST-CE")
@@ -64,29 +58,6 @@ class VueCreateJoinGame: BorderPane() {
         // Fin header
 
         // Debut Body
-        val col1Body = ColumnConstraints().apply { hgrow = Priority.SOMETIMES }
-
-        val col2Body = ColumnConstraints().apply {
-            hgrow = Priority.ALWAYS
-            halignment = HPos.CENTER
-        }
-
-        val col3Body = ColumnConstraints().apply { hgrow = Priority.SOMETIMES }
-        body.columnConstraints.addAll(col1Body, col2Body, col3Body)
-
-        val row1Body = RowConstraints().apply {
-            vgrow = Priority.SOMETIMES
-            valignment = VPos.CENTER
-        }
-
-        val row2Body = RowConstraints().apply { vgrow = Priority.SOMETIMES }
-
-        val row3Body = RowConstraints().apply {
-            vgrow = Priority.SOMETIMES
-            valignment = VPos.CENTER
-        }
-
-        body.rowConstraints.addAll(row1Body, row2Body, row3Body)
         body.alignment = Pos.CENTER
 
         createGameButton = Button("Créer une partie").apply {
@@ -188,13 +159,25 @@ class VueCreateJoinGame: BorderPane() {
             }
         }
 
-        val topButtonsHBox = HBox(20.0).apply {
-            alignment = Pos.CENTER
-            children.addAll(createGameButton, joinGameButton)
+        backButton = Button("Retour").apply {
+            style = """
+                -fx-background-color: #E0E0E0; /* Gris clair */
+                -fx-background-radius: 20;
+                -fx-text-fill: black;
+                -fx-font-size: 16px;
+                -fx-font-weight: normal;
+                -fx-padding: 10px 25px;
+                -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 0);
+            """.trimIndent()
+
+            val defaultStyle = this.style
+            onMouseEntered = EventHandler { style = defaultStyle + "-fx-background-color: #EEEEEE;" }
+            onMouseExited = EventHandler { style = defaultStyle }
+            onMousePressed = EventHandler { style = defaultStyle + "-fx-background-color: #DDDDDD;" }
+            onMouseReleased = EventHandler { style = defaultStyle }
         }
 
-        body.add(topButtonsHBox, 1, 1)
-        body.add(rulesButton, 1, 2)
+        this.baseVue()
 
         this.center = body
         // Fin body
@@ -207,6 +190,78 @@ class VueCreateJoinGame: BorderPane() {
      */
     fun fixeControleurBouton(bouton: Button, action: EventHandler<ActionEvent>) {
         bouton.onAction = action
+    }
+
+    fun baseVue() {
+        body.children.clear()
+        body.columnConstraints.clear()
+        body.rowConstraints.clear()
+
+        val col1Body = ColumnConstraints().apply { hgrow = Priority.SOMETIMES }
+
+        val col2Body = ColumnConstraints().apply {
+            hgrow = Priority.ALWAYS
+            halignment = HPos.CENTER
+        }
+
+        val col3Body = ColumnConstraints().apply { hgrow = Priority.SOMETIMES }
+        body.columnConstraints.addAll(col1Body, col2Body, col3Body)
+
+        val row1Body = RowConstraints().apply {
+            vgrow = Priority.SOMETIMES
+            valignment = VPos.CENTER
+        }
+
+        val row2Body = RowConstraints().apply { vgrow = Priority.SOMETIMES }
+
+        val row3Body = RowConstraints().apply {
+            vgrow = Priority.SOMETIMES
+            valignment = VPos.CENTER
+        }
+
+        body.rowConstraints.addAll(row1Body, row2Body, row3Body)
+
+        val topButtonsHBox = HBox(20.0).apply {
+            alignment = Pos.CENTER
+            children.addAll(createGameButton, joinGameButton)
+        }
+
+        body.add(topButtonsHBox, 1, 1)
+        body.add(rulesButton, 1, 2)
+
+    }
+
+    fun rulesVue() {
+
+        body.children.clear()
+        body.columnConstraints.clear()
+        body.rowConstraints.clear()
+
+        val rulesBox = VBox()
+
+        val rulesTitle = Text("Règles du jeu").apply {
+            font = Font.font("Arial", FontWeight.BLACK, 48.0)
+            fill = Color.BLACK
+        }
+
+        val rulesContent = Text(
+            "Les règles du jeu sont simples, deviner le personnage choisi par l'autre joueur " +
+                    "avant qu'il devine le vôtre, chacun votre tour vous allez poser des " +
+                    "questions qui peuvent vous aider à trouver et il fera de même pour réussir " +
+                    "avant vous.\n" +
+                    "Soyez malins et bonne chance à vous !"
+        ).apply {
+            font = Font.font("Arial", FontWeight.NORMAL, 24.0)
+            fill = Color.BLACK
+            wrappingWidth = 700.0
+            textAlignment = TextAlignment.CENTER
+        }
+
+        rulesBox.alignment = Pos.CENTER
+        rulesBox.spacing = 40.0
+
+        rulesBox.children.addAll(rulesTitle, rulesContent, backButton)
+        body.children.add(rulesBox)
     }
 
 }
