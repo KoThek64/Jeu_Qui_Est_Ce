@@ -3,11 +3,12 @@ import info.but1.sae2025.QuiEstCeClient
 import javafx.application.Application
 import javafx.scene.Scene
 import javafx.stage.Stage
+import vue.VueAllGames
 import vue.VueCreatePlayer
 
 class MainQuiEstCe: Application() {
     override fun start(stage: Stage) {
-        val vue = VueCreateJoinGame()
+        val vue = VueAllGames()
         // vue.fixeControleurBouton()
 
         val scene = Scene(vue, 1920.0, 1080.0)
