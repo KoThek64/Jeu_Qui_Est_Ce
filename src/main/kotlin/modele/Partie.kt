@@ -36,6 +36,13 @@ class Partie(
     }
 
     fun poserQuestion(idJoueur: Int, cleJoueur: String, question: String) {
+        if(question.isBlank()){
+            throw Error("la question est vide")
+        }
         client.requetePoserQuestion(this.id, idJoueur, cleJoueur, question)
+    }
+
+    fun envoyerReponse(idJoueur: Int, cleJoueur: String, reponse: String){
+        client.requeteDonnerReponse(this.id, idJoueur, cleJoueur, reponse)
     }
 }
