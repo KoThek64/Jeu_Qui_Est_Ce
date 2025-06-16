@@ -47,7 +47,7 @@ class Modele(private val client: QuiEstCeClient) {
 
         if (idPartie != null) {
             // On instancie notre objet Partie avec l'ID retourné par le serveur.
-            this.partieEnCours = Partie(client, idPartie)
+            this.partieEnCours = Partie(client, joueur.id, joueur.cle, idPartie)
             println("Partie créée avec succès. ID : $idPartie")
             this.partieEnCours?.rafraichirEtat()
             return true
