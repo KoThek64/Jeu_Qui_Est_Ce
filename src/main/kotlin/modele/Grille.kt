@@ -4,7 +4,7 @@ import info.but1.sae2025.QuiEstCeClient
 import info.but1.sae2025.data.Personnage
 
 
-class Grille(personnages : List<List<Personnage>>) {
+class Grille() {
     private var personnages : List<List<Personnage>>
 
     init {

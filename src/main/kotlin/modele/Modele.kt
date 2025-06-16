@@ -35,7 +35,7 @@ class Modele(private val client: QuiEstCeClient) {
      * @return true si la création a réussi, false sinon.
      */
     fun creerPartie(): Boolean {
-        val joueur = monJoueur
+        val joueur = this.monJoueur
         if (joueur == null) {
             println("Erreur : Le joueur doit être inscrit pour créer une partie.")
             return false
