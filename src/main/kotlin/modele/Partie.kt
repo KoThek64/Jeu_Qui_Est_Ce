@@ -31,7 +31,7 @@ class Partie(
 
         val nonNullEtat = etat!!
 
-        selfGrille = client.requeteGrilleJoueur(id, nonNullEtat.idJoueur1)
+        selfGrille = client.requeteGrilleJoueur(this.id, nonNullEtat.idJoueur1)
         otherGrille = client.requeteGrilleJoueur(this.id, nonNullEtat.idJoueur2)
     }
 
@@ -45,4 +45,19 @@ class Partie(
     fun envoyerReponse(idJoueur: Int, cleJoueur: String, reponse: String){
         client.requeteDonnerReponse(this.id, idJoueur, cleJoueur, reponse)
     }
+
+    fun trouve(idJoueur: Int,
+               cleJoueur: String,
+               ligne: Int,
+               colonne: Int){
+        client.requeteTrouve(this.id, idJoueur, cleJoueur, ligne, colonne)
+    }
+
+    fun rejoindrePartie(idPartie: Int,
+                        idJoueur: Int,
+                        cleJoueur: String
+    ){
+        client.requeteRejoindrePartie(idPartie, idJoueur, cleJoueur)
+    }
+
 }
