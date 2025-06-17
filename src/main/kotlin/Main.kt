@@ -5,7 +5,9 @@ import javafx.application.Application
 import javafx.scene.Scene
 import javafx.stage.Stage
 import modele.Modele
+import vue.VueCreateJoinGame
 import vue.VueCreatePlayer
+import vue.VueRejoindrePartie
 
 class MainQuiEstCe : Application() {
     override fun start(stage: Stage) {

@@ -8,14 +8,20 @@ import javafx.scene.layout.*
 import javafx.scene.paint.Color
 import javafx.scene.text.Font
 import javafx.scene.text.FontWeight
+import modele.Modele
 
-class VueRejoindrePartie : BorderPane() {
+class VueRejoindrePartie(private val modele: Modele) : BorderPane() {
     private val header = GridPane()
-    private val body = HBox(50.0)
+    private val body = HBox(40.0)
 
-    val label = Label("Entrez l'ID de la partie que vous voulez rejoindre")
+    val label = Label("Entrez l'ID de la partie que vous voulez rejoindre").apply {
+        font = Font.font("Arial", FontWeight.NORMAL, 20.0)
+    }
     val chooseGameID = TextField()
-    val boutonValider = Button("VALIDER")
+    val boutonValider = Button("VALIDER").apply {
+        font = Font.font("Arial", FontWeight.BOLD, 26.0)
+        style = "-fx-background-color: green; -fx-text-fill: white;"
+    }
 
     init {
         this.style = "-fx-background-color: #DDA0DD"
@@ -32,20 +38,30 @@ class VueRejoindrePartie : BorderPane() {
         header.add(labelTop, 0, 0)
         this.top = header
 
-        // --- Partie gauche : TextArea pour lister les parties disponibles ---
-        val textAreaParties = TextArea()
-        textAreaParties.text = listOf("111111", "157967", "138795", "984632", "254687", "121478").joinToString("\n")
+        // --- Partie gauche : TextArea ---
+        val textAreaParties = TextArea().apply {
+            font = Font.font("Arial", FontWeight.NORMAL, 36.0)
+        }
+        textAreaParties.text = listOf(modele.getListeParties()).joinToString("\n")
         textAreaParties.isEditable = false
-        textAreaParties.prefColumnCount = 10
-        textAreaParties.prefRowCount = 10
-        textAreaParties.style = "-fx-font-size: 16px;"
+        textAreaParties.prefWidth = 20.0
+        textAreaParties.prefHeight = 750.0
+        textAreaParties.style = "-fx-font-size: 32px; -fx-control-inner-background: white;"; "-fx-control-inner-background: white;"
 
-        val leftBox = VBox(textAreaParties)
-        leftBox.alignment = Pos.CENTER
+        val titleLeft = Label("Parties disponibles :")
+        titleLeft.font = Font.font("Arial", FontWeight.BOLD, 20.0)
+        titleLeft.textFill = Color.BLACK
+
+        val leftBox = VBox(15.0, titleLeft, textAreaParties).apply {
+            prefWidth = 200.0
+            HBox.setHgrow(this, Priority.ALWAYS)
+        }
+        leftBox.alignment = Pos.TOP_CENTER
         leftBox.padding = Insets(20.0)
 
         // --- Partie droite : champ de saisie + bouton ---
         chooseGameID.promptText = "Entrez l'ID ici..."
+        chooseGameID.font = Font.font("Arial", FontWeight.NORMAL, 14.0)
         chooseGameID.maxWidth = 200.0
 
         boutonValider.isVisible = false
@@ -59,7 +75,11 @@ class VueRejoindrePartie : BorderPane() {
             )
         )
 
-        val rightBox = VBox(15.0, label, chooseGameID, boutonValider)
+        val rightBox = VBox(20.0, label, chooseGameID, boutonValider).apply {
+            prefWidth = 400.0
+            maxWidth = Double.MAX_VALUE
+            HBox.setHgrow(this, Priority.ALWAYS)
+        }
         rightBox.alignment = Pos.CENTER
         rightBox.padding = Insets(20.0)
 
