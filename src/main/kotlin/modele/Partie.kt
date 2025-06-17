@@ -7,7 +7,7 @@ import info.but1.sae2025.data.Personnage
 
 class Partie(
     private val client: QuiEstCeClient,
-    private val joueurId: Int,
+    val joueurId: Int,
     private val joueurCle: String,
     var id: Int,
 ) {

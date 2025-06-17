@@ -35,7 +35,11 @@ class Modele(private val client: QuiEstCeClient) {
             return true
         }
     }
-    
+
+    fun getPartieEnCours(): Partie? {
+        return this.partieEnCours
+    }
+
     fun getListeParties(): List<Int> {
         return client.requeteListeParties()
     }
