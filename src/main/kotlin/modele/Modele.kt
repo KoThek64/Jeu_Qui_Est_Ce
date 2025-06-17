@@ -11,23 +11,24 @@ class Modele(private val client: QuiEstCeClient) {
     // Stocke la partie actuellement en cours.
     private var partieEnCours: Partie? = null
 
-    /**
-     * Inscrit un nouveau joueur en appelant le client.
-     * La méthode du client `requeteCreationJoueur` retourne un objet IdentificationJoueur.
-     * @return true si l'inscription a réussi, false sinon.
-     */
-    fun inscription(nom: String, prenom: String): Boolean {
-        // On utilise la fonction exacte du diagramme pour créer un joueur.
-        val identification = client.requeteCreationJoueur(nom, prenom) //
 
-        if (identification != null) {
+    fun inscription(nom: String, prenom: String){
+        // On utilise la fonction exacte du diagramme pour créer un joueur.
+        val identification = client.requeteCreationJoueur(nom, prenom)
+        if (identification.id !in client.requeteJoueurs()){
             this.monJoueur = identification
-            println("Inscription réussie pour ${prenom} ${nom}. ID: ${monJoueur?.id}")
-            return true
         }
-        println("Erreur : L'inscription a échoué.")
-        return false
     }
+
+    fun seConnecter0(id : Int, cle : String){
+        if (id !in client.requeteJoueurs()){
+            throw Error("Le joueur n'existe pas.")
+        }else{
+            //TODO
+        }
+
+    }
+
 
     /**
      * Crée une nouvelle partie sur le serveur.
@@ -43,7 +44,7 @@ class Modele(private val client: QuiEstCeClient) {
 
         // On appelle la création de partie avec l'id et la clé du joueur.
         // Cette fonction retourne l'ID de la nouvelle partie.
-        val idPartie = client.requeteCreationPartie(joueur.id, joueur.cle) //
+        val idPartie = client.requeteCreationPartie(joueur.id, joueur.cle)
 
         if (idPartie != null) {
             // On instancie notre objet Partie avec l'ID retourné par le serveur.
@@ -54,5 +55,18 @@ class Modele(private val client: QuiEstCeClient) {
         }
         println("Erreur : La création de la partie a échoué.")
         return false
+    }
+
+
+    fun getListeParties(): List<Int> {
+        return client.requeteListeParties()
+    }
+
+    fun getListePartiesCreees(): List<Int> {
+        return client.requeteListePartiesCreees()
+    }
+
+    fun getListePartiesTerminees(): List<Int> {
+        return client.requeteListePartiesTerminees()
     }
 }
