@@ -3,6 +3,7 @@ package vue
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.geometry.HPos
+import javafx.geometry.Insets
 import javafx.geometry.Pos
 import javafx.scene.control.Button
 import javafx.scene.control.Label
@@ -27,26 +28,22 @@ class VueCreatePlayer : BorderPane() {
         this.style = "-fx-background-color: #DDA0DD"
 
         // Header
-        val col1 = ColumnConstraints().apply { hgrow = Priority.SOMETIMES }
-        val col2 = ColumnConstraints().apply {
-            hgrow = Priority.ALWAYS
-            halignment = HPos.CENTER
-        }
-        val col3 = ColumnConstraints().apply { hgrow = Priority.SOMETIMES }
-        header.columnConstraints.addAll(col1, col2, col3)
         header.alignment = Pos.CENTER
 
-        val labelTop = Label("QUI-EST-CE").apply {
-            font = Font.font("Arial", FontWeight.BLACK, 72.0)
-            textFill = Color.WHITE
-            effect = DropShadow().apply {
-                radius = 20.0
-                offsetX = 0.0
-                offsetY = 0.0
-                color = Color.rgb(255, 0, 255, 0.7)
-            }
-        }
+        val labelTop = Label("QUI-EST-CE")
         header.add(labelTop, 1, 1)
+
+        labelTop.font = Font.font("Arial", FontWeight.BLACK, 72.0)
+        labelTop.textFill = Color.WHITE
+        labelTop.padding = Insets(20.0)
+
+        val dropShadow = DropShadow()
+        dropShadow.radius = 20.0
+        dropShadow.offsetX = 0.0
+        dropShadow.offsetY = 0.0
+        dropShadow.color = Color.rgb(255, 0, 255, 0.7)
+        labelTop.effect = dropShadow
+
         this.top = header
 
         // Body
