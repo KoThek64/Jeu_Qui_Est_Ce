@@ -42,42 +42,5 @@ class VuePerdu: BorderPane() {
         labelTop.padding = Insets(20.0)
 
         this.center = body
-
-
-        // Footer avec bouton retour
-        val footer = HBox()
-        footer.alignment = Pos.CENTER
-        footer.padding = Insets(30.0)
-
-        val boutonRetour = Button("Retour au menu")
-        boutonRetour.font = Font.font("Arial", FontWeight.BOLD, 24.0)
-        boutonRetour.style = "-fx-background-color: white; -fx-text-fill: #FF0000; -fx-padding: 10 20 10 20;"
-
-        boutonRetour.setOnAction()
-        {
-            this.scene.root = VueCreateJoinGame()
-        }
-
-        footer.children.add(boutonRetour)
-        this.bottom = footer
-        boutonRetour.font = Font.font("Arial", FontWeight.BOLD, 24.0)
-        boutonRetour.style = "-fx-background-color: white; -fx-text-fill: #FF0000; -fx-padding: 10 20 10 20;"
-
-// Action au clic
-        boutonRetour.setOnAction {
-            this.scene.root = VueCreateJoinGame()
-        }
-
-// Changement d'opacité au survol
-        boutonRetour.setOnMouseEntered {
-            boutonRetour.opacity = 0.7
-        }
-
-        boutonRetour.setOnMouseExited {
-            boutonRetour.opacity = 1.0
-        }
-
-
-
     }
 }
