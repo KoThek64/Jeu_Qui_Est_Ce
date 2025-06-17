@@ -21,10 +21,12 @@ import javafx.scene.text.Font
 import javafx.scene.text.FontWeight
 import javafx.scene.text.Text
 import javafx.scene.text.TextAlignment
+import javax.swing.plaf.ButtonUI
 
 class VuePerdu: BorderPane() {
 
     private val body : GridPane
+    val boutonRetour : Button
 
     init {
         this.body = GridPane()
@@ -42,5 +44,20 @@ class VuePerdu: BorderPane() {
         labelTop.padding = Insets(20.0)
 
         this.center = body
+
+        boutonRetour = Button("Retour menu").apply {
+            font = Font.font("Arial", FontWeight.BOLD, 24.0)
+            style = "-fx-background-color: white; -fx-text-fill: red;"
+        }
+
+        val footer = HBox(boutonRetour).apply {
+            alignment = Pos.CENTER
+            padding = Insets(40.0)
+        }
+
+        this.bottom = footer
+    }
+    fun fixeControleurBouton(bouton: Button, action: EventHandler<ActionEvent>) {
+        bouton.onAction = action
     }
 }
