@@ -1,6 +1,8 @@
 package vue
 
 import javafx.beans.binding.Bindings
+import javafx.event.ActionEvent
+import javafx.event.EventHandler
 import javafx.geometry.*
 import javafx.scene.control.*
 import javafx.scene.effect.DropShadow
@@ -13,6 +15,7 @@ import modele.Modele
 class VueRejoindrePartie(private val modele: Modele) : BorderPane() {
     private val header = GridPane()
     private val body = HBox(40.0)
+    val boutonRetour : Button
 
     val label = Label("Entrez l'ID de la partie que vous voulez rejoindre").apply {
         font = Font.font("Arial", FontWeight.NORMAL, 20.0)
@@ -33,9 +36,21 @@ class VueRejoindrePartie(private val modele: Modele) : BorderPane() {
         labelTop.textFill = Color.WHITE
         labelTop.padding = Insets(20.0)
 
+        boutonRetour = Button("←").apply {
+            font = Font.font("Arial", FontWeight.BOLD, 24.0)
+            style = "-fx-background-color: white; -fx-text-fill: #DDA0DD;"
+        }
+
         val dropShadow = DropShadow(20.0, Color.rgb(255, 0, 255, 0.7))
         labelTop.effect = dropShadow
-        header.add(labelTop, 0, 0)
+        header.add(boutonRetour, 0, 0)
+        header.add(labelTop, 1, 0)
+        GridPane.setHalignment(labelTop, HPos.CENTER)
+        GridPane.setHgrow(labelTop, Priority.ALWAYS)
+        header.columnConstraints.addAll(
+            ColumnConstraints().apply { halignment = HPos.LEFT; minWidth = 80.0 },
+            ColumnConstraints().apply { hgrow = Priority.ALWAYS }
+        )
         this.top = header
 
         // --- Partie gauche : TextArea ---
@@ -46,7 +61,8 @@ class VueRejoindrePartie(private val modele: Modele) : BorderPane() {
         textAreaParties.isEditable = false
         textAreaParties.prefWidth = 20.0
         textAreaParties.prefHeight = 750.0
-        textAreaParties.style = "-fx-font-size: 32px; -fx-control-inner-background: white;"; "-fx-control-inner-background: white;"
+        textAreaParties.style =
+            "-fx-font-size: 32px; -fx-control-inner-background: white;"; "-fx-control-inner-background: white;"
 
         val titleLeft = Label("Parties disponibles :")
         titleLeft.font = Font.font("Arial", FontWeight.BOLD, 20.0)
@@ -86,5 +102,10 @@ class VueRejoindrePartie(private val modele: Modele) : BorderPane() {
         body.children.addAll(leftBox, rightBox)
         body.alignment = Pos.CENTER
         this.center = body
+    }
+
+
+    fun fixeControleurBouton(bouton: Button, action: EventHandler<ActionEvent>) {
+        bouton.onAction = action
     }
 }

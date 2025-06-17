@@ -16,6 +16,7 @@ class ControleurJoinGame(
 
     override fun handle(p0: ActionEvent?) {
         val vueSuivante = VueRejoindrePartie(modele)
+        vueSuivante.fixeControleurBouton(vueSuivante.boutonRetour, ControleurButtonBackToVueCreateJoinGame(modele,vueSuivante,stage))
 
         val scene = Scene(vueSuivante, 1920.0, 1080.0)
         stage.scene = scene
