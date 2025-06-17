@@ -9,7 +9,7 @@ class Partie(
     private val client: QuiEstCeClient,
     private val joueurId: Int,
     private val joueurCle: String,
-    val id: Int,
+    var id: Int,
 ) {
 
     var selfGrille : List<List<Personnage>>? = null
@@ -57,7 +57,8 @@ class Partie(
                         idJoueur: Int,
                         cleJoueur: String
     ){
-        client.requeteRejoindrePartie(idPartie, idJoueur, cleJoueur)
+        this.etat = client.requeteRejoindrePartie(idPartie, idJoueur, cleJoueur)
+        this.id = idPartie
     }
 
 }
