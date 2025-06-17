@@ -6,7 +6,6 @@ import javafx.scene.Scene
 import javafx.scene.control.Alert
 import javafx.stage.Stage
 import modele.Modele
-import session.SessionJeu
 import vue.VueCreateJoinGame
 import vue.VueCreatePlayer
 
@@ -44,27 +43,5 @@ class ControleurCreatePlayer(
             dialog.contentText="Le compte existe déjà."
             dialog.showAndWait()
         }
-
-        /*
-        try {
-            val joueur = SessionJeu.client.requeteCreationJoueur(nom, prenom)
-            SessionJeu.joueur = joueur
-
-            val vueSuivante = VueCreateJoinGame()
-
-            vueSuivante.fixeControleurBouton(vueSuivante.rulesButton, ControleurRules(vueSuivante))
-            vueSuivante.fixeControleurBouton(vueSuivante.backButton, ControleurRulesBackButton(vueSuivante))
-
-            val scene = Scene(vueSuivante, 1920.0, 1080.0)
-            stage.scene = scene
-
-        } catch (e: Exception) {
-            val dialog = Alert(Alert.AlertType.INFORMATION)
-            dialog.title="Erreur lors de la création du joueur"
-            dialog.headerText="${e.message}"
-            dialog.contentText="Le compte existe déjà."
-            dialog.showAndWait()
-        }
-         */
     }
 }
