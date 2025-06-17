@@ -12,11 +12,15 @@ class Modele(private val client: QuiEstCeClient) {
     private var partieEnCours: Partie? = null
 
 
-    fun inscription(nom: String, prenom: String){
+    fun inscription(nom: String, prenom: String): Exception? {
         // On utilise la fonction exacte du diagramme pour créer un joueur.
-        val identification = client.requeteCreationJoueur(nom, prenom)
-        if (identification.id !in client.requeteJoueurs()){
+        try {
+            val identification = client.requeteCreationJoueur(nom, prenom)
             this.monJoueur = identification
+            return null
+
+        } catch (e: Exception) {
+            return e
         }
     }
 
