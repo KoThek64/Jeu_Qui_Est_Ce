@@ -8,16 +8,17 @@ import modele.Modele
 import vue.VueCreateJoinGame
 import vue.VueCreatePlayer
 import vue.VueGagner
+import vue.VuePartieLancee
 import vue.VuePerdu
 import vue.VueRejoindrePartie
 
 class MainQuiEstCe : Application() {
     override fun start(stage: Stage) {
 
-//        val client = QuiEstCeClient("localhost", 8080)
-//        val modele = Modele(client)
+        val client = QuiEstCeClient("localhost", 8080)
+        val modele = Modele(client)
 
-        val vue = VuePerdu()
+        val vue = VuePartieLancee()
 
 //        vue.fixeControleurBouton(vue.createAccount, ControleurCreatePlayer(modele, vue, stage))
         // vue.fixeControleurBouton(vue.alreadyAccount, ControleurAlreadyAccount(modele, vue, stage))
