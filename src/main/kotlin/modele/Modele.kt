@@ -24,44 +24,18 @@ class Modele(private val client: QuiEstCeClient) {
         }
     }
 
-    fun seConnecter0(id : Int, cle : String){
-        if (id !in client.requeteJoueurs()){
-            throw Error("Le joueur n'existe pas.")
-        }else{
-            //TODO
-        }
 
-    }
-
-
-    /**
-     * Crée une nouvelle partie sur le serveur.
-     * La méthode `requeteCreationPartie` nécessite l'ID et la clé du joueur.
-     * @return true si la création a réussi, false sinon.
-     */
     fun creerPartie(): Boolean {
-        val joueur = this.monJoueur
-        if (joueur == null) {
+
+        if (this.monJoueur?.id !in client.requeteJoueurs()) {
             println("Erreur : Le joueur doit être inscrit pour créer une partie.")
             return false
-        }
-
-        // On appelle la création de partie avec l'id et la clé du joueur.
-        // Cette fonction retourne l'ID de la nouvelle partie.
-        val idPartie = client.requeteCreationPartie(joueur.id, joueur.cle)
-
-        if (idPartie != null) {
-            // On instancie notre objet Partie avec l'ID retourné par le serveur.
-            this.partieEnCours = Partie(client, joueur.id, joueur.cle, idPartie)
-            println("Partie créée avec succès. ID : $idPartie")
-            this.partieEnCours?.rafraichirEtat()
+        } else{
+            this.partieEnCours = Partie(client, this.monJoueur!!.id, this.monJoueur!!.cle, client.requeteCreationPartie(this.monJoueur!!.id, this.monJoueur!!.cle))
             return true
         }
-        println("Erreur : La création de la partie a échoué.")
-        return false
     }
-
-
+    
     fun getListeParties(): List<Int> {
         return client.requeteListeParties()
     }
