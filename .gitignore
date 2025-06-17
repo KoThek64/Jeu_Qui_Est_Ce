@@ -29,3 +29,5 @@ Thumbs.db
 
 .gradle/buildOutputCleanup/cache.properties
 .gradle
+
+.salive
