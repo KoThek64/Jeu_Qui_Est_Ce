@@ -51,4 +51,16 @@ class Modele(private val client: QuiEstCeClient) {
     fun getListePartiesTerminees(): List<Int> {
         return client.requeteListePartiesTerminees()
     }
+
+    fun getClient(): QuiEstCeClient {
+        return client
+    }
+
+    fun getMonJoueurId(): Int? {
+        return monJoueur?.id
+    }
+
+    fun getMonJoueurCle(): String? {
+        return monJoueur?.cle
+    }
 }

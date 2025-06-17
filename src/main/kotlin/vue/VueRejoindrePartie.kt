@@ -11,6 +11,9 @@ import javafx.scene.paint.Color
 import javafx.scene.text.Font
 import javafx.scene.text.FontWeight
 import modele.Modele
+import info.but1.sae2025.QuiEstCeClient
+import info.but1.sae2025.data.IdentificationJoueur
+import modele.Partie
 
 class VueRejoindrePartie(private val modele: Modele) : BorderPane() {
     private val header = GridPane()
@@ -90,6 +93,10 @@ class VueRejoindrePartie(private val modele: Modele) : BorderPane() {
                 chooseGameID.textProperty()
             )
         )
+
+        // Contrôleur MVC pour le bouton Valider
+        // Le stage doit être transmis lors de l'initialisation de la vue
+        boutonValider.onAction = null // Nettoyage éventuel
 
         val rightBox = VBox(20.0, label, chooseGameID, boutonValider).apply {
             prefWidth = 400.0

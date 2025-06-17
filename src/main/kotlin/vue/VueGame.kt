@@ -18,9 +18,10 @@ import javafx.scene.image.ImageView
 import modele.Grille
 import info.but1.sae2025.data.Personnage
 import javafx.scene.layout.VBox
+import modele.Modele
 
 
-class VueGame: BorderPane() {
+class VueGame(modele: Modele) : BorderPane() {
 
     private val header: Header
     private val body: GridPane
