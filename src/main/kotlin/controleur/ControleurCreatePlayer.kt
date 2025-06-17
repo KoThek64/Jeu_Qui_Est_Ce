@@ -33,6 +33,8 @@ class ControleurCreatePlayer(
 
             vueSuivante.fixeControleurBouton(vueSuivante.rulesButton, ControleurRules(vueSuivante))
             vueSuivante.fixeControleurBouton(vueSuivante.backButton, ControleurRulesBackButton(vueSuivante))
+            vueSuivante.fixeControleurBouton(vueSuivante.createGameButton, ControleurCreateGame(modele, vueSuivante, stage))
+            vueSuivante.fixeControleurBouton(vueSuivante.joinGameButton, ControleurJoinGame(modele, vueSuivante, stage))
 
             val scene = Scene(vueSuivante, 1920.0, 1080.0)
             stage.scene = scene
