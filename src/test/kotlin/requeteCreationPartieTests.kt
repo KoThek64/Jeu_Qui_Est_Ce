@@ -29,14 +29,14 @@ class requeteCreationPartieTests {
     @Test
     fun requeteCreationPartieCleJoueurVide() {
         assertThrows<IllegalArgumentException> {
-            client.requeteCreationPartie(InitTests().id(), "")
+            client.requeteCreationPartie(InitTests().idJoueurs(), "")
         }
     }
 
     @Test
     fun requeteCreationPartieCleJoueurIncorrecte() {
         assertThrows<IllegalArgumentException> {
-            client.requeteCreationPartie(InitTests().id(), "CleIncorrecte")
+            client.requeteCreationPartie(InitTests().idJoueurs(), "CleIncorrecte")
         }
     }
 

@@ -20,7 +20,7 @@ class requeteJoueurTests {
     //-----------TESTS DE LA REQUETE DE RECUPERATION DU JOUEUR-----------//
     @Test
     fun requeteJoueurValide() {
-        val joueur = client.requeteJoueur(InitTests().id())
+        val joueur = client.requeteJoueur(InitTests().idJoueurs())
         assertNotNull(client.requeteJoueurs())
         assertTrue(joueur.nom.isNotEmpty())
         assertTrue(joueur.prenom.isNotEmpty())

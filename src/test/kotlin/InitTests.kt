@@ -106,8 +106,14 @@ class InitTests() {
         return result
     }
 
-    fun id() : Int{
+    fun idJoueurs() : Int{
         val listeId = client.requeteJoueurs()
+        val random = listeId.random()
+        return random
+    }
+
+    fun idPartie() : Int{
+        val listeId = client.requeteListeParties()
         val random = listeId.random()
         return random
     }
