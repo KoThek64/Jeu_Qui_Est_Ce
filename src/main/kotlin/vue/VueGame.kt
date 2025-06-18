@@ -176,7 +176,7 @@ class VueGame(modele: Modele) : BorderPane() {
         var col = 0
         val maxColumns = 6
 
-        for (ligne in grille.getPersonnages()) {
+        for (ligne in grille.personnages) {
             for (personnage in ligne) {
                 val characterCard = createCharacterCard(personnage, col, row)
                 characterGridPane.add(characterCard, col, row)

@@ -17,11 +17,11 @@ import modele.Grille as ModelGrille
 /**
  * Composant réutilisable représentant une grille de personnages
  */
-class Grille(
-    private val modele: Modele
+class   Grille(
+    private val modele: Modele,
+    val onCharacterSelected: ((Personnage) -> Unit)? = null
 ) : GridPane() {
     private var selectedCharacter: Personnage? = null
-    private var onCharacterSelected: ((Personnage) -> Unit)? = null
 
     init {
         this.apply {
@@ -133,20 +133,6 @@ class Grille(
         onCharacterSelected?.invoke(personnage)
     }
 
-    fun setOnCharacterSelectedListener(listener: (Personnage) -> Unit) {
-        onCharacterSelected = listener
-    }
-
-    /**
-     * Configure la réaction à la sélection d'un personnage en mettant à jour le footer
-     * 
-     * @param footer Le composant Footer à mettre à jour lors de la sélection
-     */
-    fun configureWithFooter(footer: Footer) {
-        this.setOnCharacterSelectedListener { personnage ->
-            footer.updateText("Personnage sélectionné : ${personnage.prenom} ${personnage.nom}")
-        }
-    }
 
     fun getSelectedCharacter(): Personnage? = selectedCharacter
 
@@ -161,9 +147,9 @@ class Grille(
             return
         }
 
-        val personnages = grilleModel.getPersonnages()
+        val personnages = grilleModel.personnages
         println("Mise à jour de la grille d'affichage avec ${personnages.flatten().size} personnages")
         grilleModel.recupererGrille(modele.partieEnCours!!.id, idJoueur , modele.getClient())
-        this.updateGrid(grilleModel.getPersonnages())
+        this.updateGrid(grilleModel.personnages)
     }
 }

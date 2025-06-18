@@ -1,5 +1,6 @@
 package controleur
 
+import info.but1.sae2025.data.Personnage
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.scene.Scene
@@ -54,7 +55,22 @@ class ControleurBoutonValiderPartie(
             partie.rafraichirEtat()
 
             // Afficher la vue de partie lancée ou autre selon le flow
-            val vueJeu = VueChoseCharacter(modele)
+            var vueJeu = VueChoseCharacter(modele)
+
+            vueJeu.footer.validateButton.setOnAction {
+                val otherGrille = modele.partieEnCours!!.otherGrille
+
+                otherGrille.personnages.forEachIndexed {x, array ->
+                    array.forEachIndexed { y, pers ->
+                        if (pers == vueJeu.getSelectedCharacter()) {
+                            modele.partieEnCours!!.choisirPersonnage(
+                                pers, x, y
+                            )
+                        }
+                    }
+                }
+            }
+
             val scene = Scene(vueJeu, 1920.0, 1080.0)
 
             val otherGrille = modele.partieEnCours?.otherGrille

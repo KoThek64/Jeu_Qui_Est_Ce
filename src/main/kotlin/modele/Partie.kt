@@ -15,6 +15,7 @@ class Partie(
 
     var selfGrille : Grille = Grille()
     var otherGrille : Grille = Grille()
+    var personnageChoisis: Personnage? = null
 
     var etat: EtatPartie? = null
 
@@ -32,7 +33,7 @@ class Partie(
         try {
             // Grille du joueur courant
             val selfGrilleData = client.requeteGrilleJoueur(this.id, this.joueurId)
-            selfGrille.setPersonnages(selfGrilleData)
+            selfGrille.personnages = selfGrilleData
 
             // Grille de l’adversaire si présent
             if (nonNullEtat.idJoueur2 > 0) {
@@ -42,10 +43,10 @@ class Partie(
                     nonNullEtat.idJoueur1
                 }
                 val otherGrilleData = client.requeteGrilleJoueur(this.id, idAdverse)
-                otherGrille.setPersonnages(otherGrilleData)
+                otherGrille = Grille(otherGrilleData)
             }
 
-            println("Grilles chargées : ${selfGrille.getPersonnages().flatten().size} pour le joueur courant")
+            println("Grilles chargées : ${selfGrille.personnages.flatten().size} pour le joueur courant")
         } catch (e: Exception) {
             println("Erreur lors du chargement des grilles : ${e.message}")
             throw e
@@ -87,6 +88,15 @@ class Partie(
         this.etat = client.requeteRejoindrePartie(idPartie, idJoueur, cleJoueur)
         this.id = idPartie
          */
+    }
+
+
+    fun choisirPersonnage(personnage: Personnage, x: Int, y: Int) {
+        println("Choix du personnage : $personnage")
+        client.requeteChoixPersonnage(id, joueurId, joueurCle, x, y)
+        personnageChoisis = personnage
+
+        TODO("changer la vue pour le game (attendre que l'autre choisissse son personnage aussi)")
     }
 
 }
