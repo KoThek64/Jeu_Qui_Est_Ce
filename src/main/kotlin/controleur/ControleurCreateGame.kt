@@ -1,5 +1,6 @@
 package controleur
 
+import javafx.application.Platform
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.scene.Scene
@@ -7,6 +8,7 @@ import javafx.stage.Stage
 import modele.Modele
 import vue.VueCreateJoinGame
 import vue.VueGame
+import java.util.*
 
 class ControleurCreateGame(
     private val modele: Modele,
@@ -16,17 +18,26 @@ class ControleurCreateGame(
 
     override fun handle(event: ActionEvent) {
         modele.creerPartie()
+        vue.attenteJoueur2()
 
-        while (modele.partieEnCours?.etat == null) {
-            vue.attenteJoueur2()
+        val timer = Timer()
+        timer.scheduleAtFixedRate(object : TimerTask() {
+            override fun run() {
+                // On rafraîchit l'état de la partie
+                modele.partieEnCours?.rafraichirEtat()
 
-            modele.partieEnCours?.rafraichirEtat()
-        }
-
-        val vueSuivante = VueGame(modele)
-
-        val scene = Scene(vueSuivante, 1920.0, 1080.0)
-        stage.scene = scene
+                // On vérifie si l'étape est bien INITIALISATION (adapter ci-dessous si c'est une enum ou un string)
+                val etapeActuelle = modele.partieEnCours?.etat?.etape?.name // ou juste .etape si c'est un string
+                if (etapeActuelle == "INITIALISATION") {
+                    Platform.runLater {
+                        // Passage à la vue principale du jeu
+                        val vueJeu = VueGame(modele)
+                        val scene = Scene(vueJeu, 1920.0, 1080.0)
+                        stage.scene = scene
+                        timer.cancel()
+                    }
+                }
+            }
+        }, 0, 1000)
     }
-
 }

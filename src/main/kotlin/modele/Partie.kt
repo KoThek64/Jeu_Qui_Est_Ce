@@ -32,8 +32,15 @@ class Partie(
 
         val nonNullEtat = etat!!
 
+        // La grille pour le joueur courant existe toujours
         selfGrille = client.requeteGrilleJoueur(this.id, nonNullEtat.idJoueur1)
-        otherGrille = client.requeteGrilleJoueur(this.id, nonNullEtat.idJoueur2)
+
+        // On ne charge la grille de l'adversaire que s'il a bien rejoint
+        if (nonNullEtat.idJoueur2 != null && nonNullEtat.idJoueur2 > 0) {
+            otherGrille = client.requeteGrilleJoueur(this.id, nonNullEtat.idJoueur2)
+        } else {
+            otherGrille = null
+        }
     }
 
     fun poserQuestion(idJoueur: Int, cleJoueur: String, question: String) {

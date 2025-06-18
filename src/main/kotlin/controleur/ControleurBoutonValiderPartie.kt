@@ -49,7 +49,7 @@ class ControleurBoutonValiderPartie(
         val connexion = partie.rejoindrePartie(idPartie, joueurId!!, joueurCle!!)
         if (connexion !is Exception) {
             // Afficher la vue de partie lancée ou autre selon le flow
-            val vuePartie = VuePartieLancee()
+            val vuePartie = VueGame(modele)
             // TODO : Passer les infos nécessaires à la vue partie si besoin
             stage.scene = javafx.scene.Scene(vuePartie, 1920.0, 1080.0)
         } else {
