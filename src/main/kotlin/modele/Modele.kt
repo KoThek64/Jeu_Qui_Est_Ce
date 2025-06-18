@@ -13,7 +13,7 @@ class Modele(private val client: QuiEstCeClient) {
 
 
     fun inscription(nom: String, prenom: String): Exception? {
-        // On utilise la fonction exacte du diagramme pour créer un joueur.
+
         try {
             val identification = client.requeteCreationJoueur(nom, prenom)
             this.monJoueur = identification

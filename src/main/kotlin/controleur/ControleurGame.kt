@@ -2,7 +2,6 @@ package controleur
 
 import javafx.stage.Stage
 import modele.Modele
-import vue.VueGame
 import vue.VuePartieLancee
 import vue.VueRejoindrePartie
 

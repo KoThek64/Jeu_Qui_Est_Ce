@@ -1,6 +1,5 @@
 package controleur
 
-import info.but1.sae2025.data.Personnage
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.scene.Scene
@@ -9,7 +8,6 @@ import javafx.stage.Stage
 import modele.Modele
 import modele.Partie
 import vue.VueChoseCharacter
-import vue.VueGame
 import vue.VuePartieLancee
 import vue.VueRejoindrePartie
 
@@ -54,7 +52,6 @@ class ControleurBoutonValiderPartie(
         if (connexion !is Exception) {
             partie.rafraichirEtat()
 
-            // Afficher la vue de partie lancée ou autre selon le flow
             var vueJeu = VueChoseCharacter(modele)
 
             vueJeu.footer.validateButton.setOnAction {

@@ -7,7 +7,6 @@ import modele.Modele
 import vue.VueCreateJoinGame
 import vue.VueCreatePlayer
 import vue.VueGagner
-import vue.VueGame
 import vue.VuePartieLancee
 import vue.VuePerdu
 import vue.VueRejoindrePartie

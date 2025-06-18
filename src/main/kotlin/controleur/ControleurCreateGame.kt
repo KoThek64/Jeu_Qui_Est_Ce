@@ -8,7 +8,7 @@ import javafx.stage.Stage
 import modele.Modele
 import vue.VueChoseCharacter
 import vue.VueCreateJoinGame
-import vue.VueGame
+import vue.VuePartieLancee
 import java.util.*
 
 class ControleurCreateGame(
@@ -24,22 +24,36 @@ class ControleurCreateGame(
         val timer = Timer()
         timer.scheduleAtFixedRate(object : TimerTask() {
             override fun run() {
-                // On rafraîchit l'état de la partie
+
                 modele.partieEnCours?.rafraichirEtat()
 
-                // On vérifie si l'étape est bien INITIALISATION (adapter ci-dessous si c'est une enum ou un string)
-                val etapeActuelle = modele.partieEnCours?.etat?.etape?.name // ou juste .etape si c'est un string
+                val etapeActuelle = modele.partieEnCours?.etat?.etape?.name
                 if (etapeActuelle == "INITIALISATION") {
                     Platform.runLater {
-                        // Passage à la vue principale du jeu
+
                         val vueJeu = VueChoseCharacter(modele)
                         val scene = Scene(vueJeu, 1920.0, 1080.0)
 
                         val selfGrille = modele.partieEnCours?.selfGrille
                         vueJeu.updateCharacterGrid(selfGrille)
 
-                        println("${modele.partieEnCours!!.selfGrille}")
-                        println("${modele.partieEnCours!!.otherGrille}")
+                        vueJeu.footer.validateButton.setOnAction {
+                            val selectedCharacter = vueJeu.getSelectedCharacter()
+
+                            selfGrille?.personnages?.forEachIndexed { x, row ->
+                                row.forEachIndexed { y, personnage ->
+                                    if (personnage == selectedCharacter) {
+                                        modele.partieEnCours!!.choisirPersonnage(personnage, x, y)
+
+                                        val gameVue = VuePartieLancee()
+                                        val controller = ControleurGame(modele, gameVue, stage)
+                                        val nouvelleScene = Scene(gameVue, 1920.0, 1080.0)
+                                        stage.scene = nouvelleScene
+                                        return@forEachIndexed
+                                    }
+                                }
+                            }
+                        }
 
                         stage.scene = scene
                         timer.cancel()

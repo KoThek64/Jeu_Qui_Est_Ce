@@ -21,7 +21,8 @@ class Partie(
 
 
     fun rafraichirEtat() {
-        this.etat = client.requeteEtatPartie(this.id) //
+        this.etat = client.requeteEtatPartie(this.id)
+
         // Une fois l'état à jour, on peut en profiter pour charger les grilles des joueurs.
         chargerLesGrilles()
     }
@@ -84,10 +85,6 @@ class Partie(
             return e
         }
 
-        /*
-        this.etat = client.requeteRejoindrePartie(idPartie, idJoueur, cleJoueur)
-        this.id = idPartie
-         */
     }
 
 
