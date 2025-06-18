@@ -17,12 +17,10 @@ class Footer(txt: String = "") : GridPane() {
     
     init {
         this.alignment = Pos.CENTER
-        
-        // Création du conteneur horizontal
-        val hbox = HBox(20.0) // 20.0 est l'espacement entre les éléments
+
+        val hbox = HBox(20.0)
         hbox.alignment = Pos.CENTER
-        
-        // Initialisation de labelBottom
+
         labelBottom = Label("Choisissez votre personnage")
         labelBottom.font = Font.font("Arial", FontWeight.BLACK, 24.0)
         labelBottom.textFill = Color.WHITE
@@ -33,8 +31,7 @@ class Footer(txt: String = "") : GridPane() {
             offsetY = 0.0
             color = Color.rgb(255, 0, 255, 0.5)
         }
-        
-        // Création du bouton de validation
+
         validateButton = Button("Valider").apply {
             style = """
                 -fx-background-color: #4CAF50;
@@ -60,17 +57,14 @@ class Footer(txt: String = "") : GridPane() {
                 }
             }
         }
-        
-        // Ajout des éléments au HBox
+
         hbox.children.addAll(labelBottom, validateButton)
-        
-        // Ajout du HBox au GridPane
+
         this.add(hbox, 1, 1)
     }
     
     fun updateText(newText: String) {
         labelBottom.text = newText
-        // Activer le bouton quand un personnage est sélectionné
         validateButton.isDisable = newText == "Choisissez votre personnage"
     }
 }

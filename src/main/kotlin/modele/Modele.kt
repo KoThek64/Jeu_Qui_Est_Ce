@@ -5,10 +5,8 @@ import info.but1.sae2025.data.IdentificationJoueur
 
 class Modele(private val client: QuiEstCeClient) {
 
-    // Stocke les informations du joueur principal après son inscription.
     var monJoueur: IdentificationJoueur? = null
 
-    // Stocke la partie actuellement en cours.
     var partieEnCours: Partie? = null
 
 

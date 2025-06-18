@@ -22,8 +22,6 @@ class Partie(
 
     fun rafraichirEtat() {
         this.etat = client.requeteEtatPartie(this.id)
-
-        // Une fois l'état à jour, on peut en profiter pour charger les grilles des joueurs.
         chargerLesGrilles()
     }
 
@@ -32,7 +30,6 @@ class Partie(
         val nonNullEtat = etat!!
 
         try {
-            // Grille du joueur courant
             val selfGrilleData = client.requeteGrilleJoueur(this.id, this.joueurId)
             selfGrille.personnages = selfGrilleData
 

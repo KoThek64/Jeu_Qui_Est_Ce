@@ -106,11 +106,6 @@ class VueCreerRejoindrePartie(
         onMouseReleased = EventHandler { style = defaultStyle }
     }
 
-    /**
-     * ajoute un action listener au bouton bouton
-     * @param bouton le bouton cible
-     * @param action le listener à ajouter
-     */
     fun fixeControleurBouton(bouton: Button, action: EventHandler<ActionEvent>) {
         bouton.onAction = action
     }

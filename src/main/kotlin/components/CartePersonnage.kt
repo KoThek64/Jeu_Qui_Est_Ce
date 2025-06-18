@@ -12,7 +12,7 @@ import java.nio.charset.StandardCharsets
 
 class CartePersonnage(val personnage: Personnage, col: Int, line: Int) : VBox(10.0) {
 
-    val baseUrl: String = "http://localhost:8080/resources/but1/"
+    val baseUrl: String = "http://172.26.69.145:8080/resources/but1/"
     val prenom: String = personnage.prenom
     val nom: String = personnage.nom
     var urlComplet = "$baseUrl${nom.uppercase()}_${prenom.capitalize()}.jpg"
@@ -22,7 +22,6 @@ class CartePersonnage(val personnage: Personnage, col: Int, line: Int) : VBox(10
 
 
     init {
-        // Configuration du conteneur VBox
         this.alignment = Pos.CENTER
         this.style = """
             -fx-background-color: white;
@@ -32,7 +31,6 @@ class CartePersonnage(val personnage: Personnage, col: Int, line: Int) : VBox(10
             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 0);
         """.trimIndent()
 
-        // Configuration de l'image
         imageView = ImageView().apply {
             try {
                 val preNom = "${nom.uppercase()}_${prenom.capitalize()}.jpg"
@@ -48,7 +46,6 @@ class CartePersonnage(val personnage: Personnage, col: Int, line: Int) : VBox(10
             }
         }
 
-        // Configuration du label avec le nom
         nameLabel = Label("$prenom $nom").apply {
             style = """
                 -fx-font-size: 14px;
@@ -57,10 +54,8 @@ class CartePersonnage(val personnage: Personnage, col: Int, line: Int) : VBox(10
             """.trimIndent()
         }
 
-        // Ajout des éléments au VBox
         children.addAll(imageView, nameLabel)
 
-        // Ajout des événements de survol
         setOnMouseEntered {
             style += "-fx-background-color: #f0f0f0;"
         }
@@ -77,9 +72,6 @@ class CartePersonnage(val personnage: Personnage, col: Int, line: Int) : VBox(10
         }
     }
 
-    /**
-     * Réinitialise le style de la carte au style par défaut
-     */
     fun resetStyle() {
         style = """
             -fx-background-color: white;
@@ -90,9 +82,6 @@ class CartePersonnage(val personnage: Personnage, col: Int, line: Int) : VBox(10
         """.trimIndent()
     }
 
-    /**
-     * Applique le style de sélection à la carte
-     */
     fun setSelectedStyle() {
         style = """
             -fx-background-color: #f0f0f0;

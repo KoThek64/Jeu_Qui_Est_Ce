@@ -86,7 +86,6 @@ class VueRejoindrePartie(private val modele: Modele) : BorderPane() {
         boutonValider.isVisible = false
         boutonValider.managedProperty().bind(boutonValider.visibleProperty())
 
-        // Rendre visible le bouton seulement si on tape quelque chose
         boutonValider.visibleProperty().bind(
             Bindings.createBooleanBinding(
                 { chooseGameID.text.trim().isNotEmpty() },
@@ -94,9 +93,7 @@ class VueRejoindrePartie(private val modele: Modele) : BorderPane() {
             )
         )
 
-        // Contrôleur MVC pour le bouton Valider
-        // Le stage doit être transmis lors de l'initialisation de la vue
-        boutonValider.onAction = null // Nettoyage éventuel
+        boutonValider.onAction = null
 
         val rightBox = VBox(20.0, label, chooseGameID, boutonValider).apply {
             prefWidth = 400.0

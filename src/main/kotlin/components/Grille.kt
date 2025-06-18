@@ -14,9 +14,6 @@ import javafx.scene.control.Label
 import modele.Modele
 import modele.Grille as ModelGrille
 
-/**
- * Composant réutilisable représentant une grille de personnages
- */
 class   Grille(
     private val modele: Modele,
     val onCharacterSelected: ((Personnage) -> Unit)? = null
@@ -38,13 +35,6 @@ class   Grille(
         }
     }
 
-    /**
-     * Configure la grille dans un conteneur parent avec une disposition optimisée
-     * 
-     * @param parentContainer Le conteneur GridPane dans lequel la grille sera ajoutée
-     * @param parentBackgroundColor La couleur d'arrière-plan du conteneur parent
-     * @return Le conteneur parent configuré avec la grille
-     */
     fun setupInGrid(parentContainer: GridPane, parentBackgroundColor: String = "#DDA0DD"): GridPane {
         // Configuration du conteneur parent
         parentContainer.apply {
@@ -81,7 +71,6 @@ class   Grille(
         }
         parentContainer.rowConstraints.addAll(bodyRows)
 
-        // Ajout de cette grille au conteneur parent
         parentContainer.add(this, 1, 1)
 
         return parentContainer
@@ -122,25 +111,17 @@ class   Grille(
     }
 
     private fun handleCharacterSelection(carte: CartePersonnage, personnage: Personnage) {
-        // Réinitialiser le style de toutes les cartes
         this.children.filterIsInstance<CartePersonnage>().forEach { it.resetStyle() }
 
-        // Mettre à jour la sélection
         selectedCharacter = personnage
         carte.setSelectedStyle()
 
-        // Notifier le changement
         onCharacterSelected?.invoke(personnage)
     }
 
 
     fun getSelectedCharacter(): Personnage? = selectedCharacter
 
-    /**
-     * Met à jour la grille avec les personnages du modèle
-     *
-     * @param grilleModel Le modèle de grille contenant les personnages à afficher
-     */
     fun updateCharacterGrid(grilleModel: modele.Grille?, idJoueur: Int) {
         if (grilleModel == null) {
             println("Attention: Grille modèle est null - aucun personnage à afficher")

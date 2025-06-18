@@ -46,7 +46,6 @@ class VuePartieLancee(
         val defaultStyle = style
         onMouseEntered = EventHandler { style = "$defaultStyle -fx-background-color: #1E90FF;"}
         onMouseExited = EventHandler { style = defaultStyle }
-        setOnAction { gererEnvoiQuestion() }
     }
 
     private val questionAdv : TextArea = TextArea("").apply {
@@ -70,7 +69,6 @@ class VuePartieLancee(
         val defaultStyle = style
         onMouseEntered = EventHandler { style = "$defaultStyle -fx-background-color: #90EE90;" }
         onMouseExited = EventHandler { style = defaultStyle }
-        setOnAction { gererReponseOuiNon(true) }
     }
 
     private val boutonNon : Button = Button("NON").apply {
@@ -86,7 +84,6 @@ class VuePartieLancee(
         val defaultStyle = style
         onMouseEntered = EventHandler { style = "$defaultStyle -fx-background-color: #FF4444;"}
         onMouseExited = EventHandler { style = defaultStyle }
-        setOnAction { gererReponseOuiNon(false) }
     }
 
     // PARTIE DE DROITE
@@ -126,7 +123,6 @@ class VuePartieLancee(
         font = Font.font("Arial", FontWeight.NORMAL, 14.0)
         prefWidth = 120.0
         style = "-fx-background-color: #90EE90;"
-        setOnAction { gererSelectionSuspect() }
     }
 
     private val body : GridPane = GridPane()
@@ -201,20 +197,4 @@ class VuePartieLancee(
         setMargin(vBoxRight, Insets(20.0))
     }
 
-
-    private fun gererEnvoiQuestion() {
-        val questionText = question.text
-        if (questionText.isNotEmpty()) {
-            // TODO: Envoyer la question au serveur
-            question.clear()
-        }
-    }
-
-    private fun gererReponseOuiNon(reponse: Boolean) {
-        // TODO: Envoyer la réponse au serveur
-    }
-
-    private fun gererSelectionSuspect() {
-        // TODO: Implémenter la logique de validation du suspect
-    }
 }
