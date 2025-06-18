@@ -7,7 +7,7 @@ import javafx.scene.control.Alert
 import javafx.stage.Stage
 import modele.Modele
 import modele.Partie
-import vue.VueGame
+import vue.VueChoisirPersonnage
 import vue.VuePartieLancee
 import vue.VueRejoindrePartie
 
@@ -46,12 +46,40 @@ class ControleurBoutonValiderPartie(
             idPartie
         )
 
+        modele.partieEnCours = partie
+
         val connexion = partie.rejoindrePartie(idPartie, joueurId!!, joueurCle!!)
         if (connexion !is Exception) {
-            // Afficher la vue de partie lancée ou autre selon le flow
-            val vuePartie = VueGame(modele)
-            // TODO : Passer les infos nécessaires à la vue partie si besoin
-            stage.scene = javafx.scene.Scene(vuePartie, 1920.0, 1080.0)
+            partie.rafraichirEtat()
+
+            var vueJeu = VueChoisirPersonnage(modele)
+
+            vueJeu.footer.validateButton.setOnAction {
+                val otherGrille = modele.partieEnCours!!.otherGrille
+
+                otherGrille.personnages.forEachIndexed {x, array ->
+                    array.forEachIndexed { y, pers ->
+                        if (pers == vueJeu.getSelectedCharacter()) {
+                            modele.partieEnCours!!.choisirPersonnage(
+                                pers, x, y
+                            )
+
+                            val gameVue = VuePartieLancee(modele)
+                            val controller = ControleuJeu(modele, gameVue, stage)
+                            val scene = Scene(gameVue, 1920.0, 1080.0)
+                            stage.scene = scene
+                            return@forEachIndexed
+                        }
+                    }
+                }
+            }
+
+            val scene = Scene(vueJeu, 1920.0, 1080.0)
+
+            val otherGrille = modele.partieEnCours?.otherGrille
+            vueJeu.updateCharacterGrid(otherGrille)
+
+            stage.scene = scene
         } else {
             val alert = Alert(Alert.AlertType.ERROR)
             alert.title = "Erreur"
@@ -59,16 +87,5 @@ class ControleurBoutonValiderPartie(
             alert.showAndWait()
             return
         }
-
-
-
-        /*
-        modele.partieEnCours?.rejoindrePartie(vue.chooseGameID.text.toInt(), modele.monJoueur!!.id, modele.monJoueur!!.cle)
-
-        val vueSuivante = VueGame(modele)
-
-        val scene = Scene(vueSuivante, 1920.0, 1080.0)
-        stage.scene = scene
-         */
     }
 }

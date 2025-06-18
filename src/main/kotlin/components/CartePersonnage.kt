@@ -7,6 +7,8 @@ import javafx.scene.image.ImageView
 import javafx.geometry.Pos
 import javafx.scene.layout.VBox
 import javafx.scene.control.Label
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 class CartePersonnage(val personnage: Personnage, col: Int, line: Int) : VBox(10.0) {
 
@@ -16,6 +18,8 @@ class CartePersonnage(val personnage: Personnage, col: Int, line: Int) : VBox(10
     var urlComplet = "$baseUrl${nom.uppercase()}_${prenom.capitalize()}.jpg"
     private val imageView: ImageView
     private val nameLabel: Label
+
+
 
     init {
         // Configuration du conteneur VBox
@@ -31,6 +35,9 @@ class CartePersonnage(val personnage: Personnage, col: Int, line: Int) : VBox(10
         // Configuration de l'image
         imageView = ImageView().apply {
             try {
+                val preNom = "${nom.uppercase()}_${prenom.capitalize()}.jpg"
+                val urlPerso = URLEncoder.encode(preNom, StandardCharsets.UTF_8.toString())
+                urlComplet = "$baseUrl${urlPerso}"
                 image = Image(urlComplet)
                 fitWidth = 100.0
                 fitHeight = 100.0

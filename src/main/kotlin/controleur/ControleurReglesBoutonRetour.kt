@@ -2,9 +2,9 @@ package controleur
 
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
-import vue.VueCreateJoinGame
+import vue.VueCreerRejoindrePartie
 
-class ControleurRulesBackButton(private val vue: VueCreateJoinGame): EventHandler<ActionEvent> {
+class ControleurReglesBoutonRetour(private val vue: VueCreerRejoindrePartie): EventHandler<ActionEvent> {
     override fun handle(event: ActionEvent) {
         vue.baseVue()
     }

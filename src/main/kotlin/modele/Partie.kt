@@ -13,35 +13,47 @@ class Partie(
     var id: Int,
 ) {
 
-    var selfGrille : List<List<Personnage>>? = null
-    var otherGrille : List<List<Personnage>>? = null
+    var selfGrille : Grille = Grille()
+    var otherGrille : Grille = Grille()
+    var personnageChoisis: Personnage? = null
 
     var etat: EtatPartie? = null
 
 
     fun rafraichirEtat() {
-        this.etat = client.requeteEtatPartie(this.id) //
+        this.etat = client.requeteEtatPartie(this.id)
+
         // Une fois l'état à jour, on peut en profiter pour charger les grilles des joueurs.
         chargerLesGrilles()
     }
 
     private fun chargerLesGrilles() {
-        if (etat == null) {
-            throw Error("L'état ne doit pas être null")
-        }
-
+        if (etat == null) throw Error("L'état ne doit pas être null")
         val nonNullEtat = etat!!
 
-        // La grille pour le joueur courant existe toujours
-        selfGrille = client.requeteGrilleJoueur(this.id, nonNullEtat.idJoueur1)
+        try {
+            // Grille du joueur courant
+            val selfGrilleData = client.requeteGrilleJoueur(this.id, this.joueurId)
+            selfGrille.personnages = selfGrilleData
 
-        // On ne charge la grille de l'adversaire que s'il a bien rejoint
-        if (nonNullEtat.idJoueur2 != null && nonNullEtat.idJoueur2 > 0) {
-            otherGrille = client.requeteGrilleJoueur(this.id, nonNullEtat.idJoueur2)
-        } else {
-            otherGrille = null
+            // Grille de l’adversaire si présent
+            if (nonNullEtat.idJoueur2 > 0) {
+                val idAdverse = if (this.joueurId == nonNullEtat.idJoueur1) {
+                    nonNullEtat.idJoueur2
+                } else {
+                    nonNullEtat.idJoueur1
+                }
+                val otherGrilleData = client.requeteGrilleJoueur(this.id, idAdverse)
+                otherGrille = Grille(otherGrilleData)
+            }
+
+            println("Grilles chargées : ${selfGrille.personnages.flatten().size} pour le joueur courant")
+        } catch (e: Exception) {
+            println("Erreur lors du chargement des grilles : ${e.message}")
+            throw e
         }
     }
+
 
     fun poserQuestion(idJoueur: Int, cleJoueur: String, question: String) {
         if(question.isBlank()){
@@ -73,10 +85,13 @@ class Partie(
             return e
         }
 
-        /*
-        this.etat = client.requeteRejoindrePartie(idPartie, idJoueur, cleJoueur)
-        this.id = idPartie
-         */
+    }
+
+
+    fun choisirPersonnage(personnage: Personnage, x: Int, y: Int) {
+        println("Choix du personnage : $personnage")
+        client.requeteChoixPersonnage(id, joueurId, joueurCle, x, y)
+        personnageChoisis = personnage
     }
 
 }

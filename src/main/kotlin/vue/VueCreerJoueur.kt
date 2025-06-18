@@ -2,7 +2,6 @@ package vue
 
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
-import javafx.geometry.HPos
 import javafx.geometry.Insets
 import javafx.geometry.Pos
 import javafx.scene.control.Button
@@ -14,12 +13,12 @@ import javafx.scene.paint.Color
 import javafx.scene.text.Font
 import javafx.scene.text.FontWeight
 
-class VueCreatePlayer : BorderPane() {
+class VueCreerJoueur : BorderPane() {
 
     private val header: GridPane = GridPane()
     private val body: GridPane = GridPane()
     val createAccount: Button
-    val alreadyAccount: Button
+
 
     val prenom: TextField = TextField()
     val nom: TextField = TextField()
@@ -74,9 +73,8 @@ class VueCreatePlayer : BorderPane() {
         nom.style = fieldStyle()
 
         createAccount = boutonStyle("Créer un compte")
-        alreadyAccount = boutonStyle("J'ai déjà un compte")
 
-        val bodyButtons = VBox(30.0, prenom, nom, alreadyAccount, createAccount).apply {
+        val bodyButtons = VBox(30.0, prenom, nom, createAccount).apply {
             alignment = Pos.CENTER
         }
 
