@@ -6,16 +6,19 @@ import components.Header
 import info.but1.sae2025.data.Personnage
 import javafx.scene.layout.BorderPane
 import javafx.scene.layout.GridPane
+import modele.Modele
 
 /**
  * Vue pour choisir un personnage dans une grille
  */
-class VueChoseCharacter : BorderPane() {
+class VueChoseCharacter(
+    private val modele: Modele
+): BorderPane() {
 
     private val header: Header = Header()
     private val body: GridPane = GridPane()
     private val footer: Footer = Footer("Choisissez votre personnage")
-    private val grille: Grille = Grille()
+    private val grille: Grille = Grille(modele)
 
     init {
         // Configuration du style global

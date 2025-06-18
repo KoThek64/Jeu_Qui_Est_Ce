@@ -6,6 +6,7 @@ import javafx.event.EventHandler
 import javafx.scene.Scene
 import javafx.stage.Stage
 import modele.Modele
+import vue.VueChoseCharacter
 import vue.VueCreateJoinGame
 import vue.VueGame
 import java.util.*
@@ -31,8 +32,15 @@ class ControleurCreateGame(
                 if (etapeActuelle == "INITIALISATION") {
                     Platform.runLater {
                         // Passage à la vue principale du jeu
-                        val vueJeu = VueGame(modele)
+                        val vueJeu = VueChoseCharacter(modele)
                         val scene = Scene(vueJeu, 1920.0, 1080.0)
+
+                        val selfGrille = modele.partieEnCours?.selfGrille
+                        vueJeu.updateCharacterGrid(selfGrille)
+
+                        println("${modele.partieEnCours!!.selfGrille}")
+                        println("${modele.partieEnCours!!.otherGrille}")
+
                         stage.scene = scene
                         timer.cancel()
                     }

@@ -11,12 +11,15 @@ import javafx.scene.layout.GridPane
 import javafx.scene.layout.Priority
 import javafx.scene.layout.RowConstraints
 import javafx.scene.control.Label
+import modele.Modele
 import modele.Grille as ModelGrille
 
 /**
  * Composant réutilisable représentant une grille de personnages
  */
-class Grille : GridPane() {
+class Grille(
+    private val modele: Modele
+) : GridPane() {
     private var selectedCharacter: Personnage? = null
     private var onCharacterSelected: ((Personnage) -> Unit)? = null
 
@@ -160,6 +163,7 @@ class Grille : GridPane() {
 
         val personnages = grilleModel.getPersonnages()
         println("Mise à jour de la grille d'affichage avec ${personnages.flatten().size} personnages")
-        this.updateGrid(personnages)
+        grilleModel.recupererGrille(modele.partieEnCours!!.id, modele.partieEnCours!!.etat!!.idJoueur1 , modele.getClient())
+        this.updateGrid(grilleModel.getPersonnages())
     }
 }

@@ -13,8 +13,8 @@ class Partie(
     var id: Int,
 ) {
 
-    var selfGrille : List<List<Personnage>>? = null
-    var otherGrille : List<List<Personnage>>? = null
+    var selfGrille : Grille = Grille()
+    var otherGrille : Grille = Grille()
 
     var etat: EtatPartie? = null
 
@@ -29,17 +29,32 @@ class Partie(
         if (etat == null) {
             throw Error("L'état ne doit pas être null")
         }
-
         val nonNullEtat = etat!!
+        println("État de la partie récupéré: joueur1=${nonNullEtat.idJoueur1}, joueur2=${nonNullEtat.idJoueur2}")
 
-        // La grille pour le joueur courant existe toujours
-        selfGrille = client.requeteGrilleJoueur(this.id, nonNullEtat.idJoueur1)
+        try {
+            // Récupération de la grille du joueur courant
+            val grilleJoueur = client.requeteGrilleJoueur(this.id, this.joueurId)
+            selfGrille.apply {
+                recupererGrille(this@Partie.id, this@Partie.joueurId, client)
+            }
 
-        // On ne charge la grille de l'adversaire que s'il a bien rejoint
-        if (nonNullEtat.idJoueur2 != null && nonNullEtat.idJoueur2 > 0) {
-            otherGrille = client.requeteGrilleJoueur(this.id, nonNullEtat.idJoueur2)
-        } else {
-            otherGrille = null
+            // Pour la grille adverse, on ne la charge que si l'autre joueur est présent
+            if (nonNullEtat.idJoueur2 > 0) {
+                val idAdverse = if (this.joueurId == nonNullEtat.idJoueur1) {
+                    nonNullEtat.idJoueur2
+                } else {
+                    nonNullEtat.idJoueur1
+                }
+                otherGrille.apply {
+                    recupererGrille(this@Partie.id, idAdverse, client)
+                }
+            }
+
+            println("Grilles chargées: ${selfGrille.getPersonnages().flatten().size} personnages pour le joueur courant")
+        } catch (e: Exception) {
+            println("Erreur lors du chargement des grilles: ${e.message}")
+            throw e
         }
     }
 

@@ -7,6 +7,7 @@ import javafx.scene.control.Alert
 import javafx.stage.Stage
 import modele.Modele
 import modele.Partie
+import vue.VueChoseCharacter
 import vue.VueGame
 import vue.VuePartieLancee
 import vue.VueRejoindrePartie
@@ -49,9 +50,13 @@ class ControleurBoutonValiderPartie(
         val connexion = partie.rejoindrePartie(idPartie, joueurId!!, joueurCle!!)
         if (connexion !is Exception) {
             // Afficher la vue de partie lancée ou autre selon le flow
-            val vuePartie = VueGame(modele)
-            // TODO : Passer les infos nécessaires à la vue partie si besoin
-            stage.scene = javafx.scene.Scene(vuePartie, 1920.0, 1080.0)
+            val vueJeu = VueChoseCharacter(modele)
+            val scene = Scene(vueJeu, 1920.0, 1080.0)
+
+            val otherGrille = modele.partieEnCours?.otherGrille
+            vueJeu.updateCharacterGrid(otherGrille)
+
+            stage.scene = scene
         } else {
             val alert = Alert(Alert.AlertType.ERROR)
             alert.title = "Erreur"
