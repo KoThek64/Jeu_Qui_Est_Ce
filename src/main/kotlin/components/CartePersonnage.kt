@@ -69,4 +69,32 @@ class CartePersonnage(val personnage: Personnage, col: Int, line: Int) : VBox(10
             """.trimIndent()
         }
     }
+
+    /**
+     * Réinitialise le style de la carte au style par défaut
+     */
+    fun resetStyle() {
+        style = """
+            -fx-background-color: white;
+            -fx-padding: 10;
+            -fx-background-radius: 10;
+            -fx-border-radius: 10;
+            -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 0);
+        """.trimIndent()
+    }
+
+    /**
+     * Applique le style de sélection à la carte
+     */
+    fun setSelectedStyle() {
+        style = """
+            -fx-background-color: #f0f0f0;
+            -fx-padding: 10;
+            -fx-background-radius: 10;
+            -fx-border-radius: 10;
+            -fx-border-color: #4BD7D7;
+            -fx-border-width: 3;
+            -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 0);
+        """.trimIndent()
+    }
 }
