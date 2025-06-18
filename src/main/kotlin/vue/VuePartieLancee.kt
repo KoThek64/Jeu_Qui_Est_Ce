@@ -1,16 +1,21 @@
 package vue
 
+import components.Grille
 import javafx.event.EventHandler
 import javafx.geometry.Insets
 import javafx.geometry.Pos
 import javafx.scene.control.Button
 import javafx.scene.control.Label
+import javafx.scene.control.ScrollPane
 import javafx.scene.control.TextArea
 import javafx.scene.layout.*
 import javafx.scene.text.Font
 import javafx.scene.text.FontWeight
+import modele.Modele
 
-class VuePartieLancee : BorderPane() {
+class VuePartieLancee(
+    private val modele: Modele
+) : BorderPane() {
 
     // PARTIE DU HAUT
     private val question : TextArea = TextArea("").apply {
@@ -124,9 +129,18 @@ class VuePartieLancee : BorderPane() {
         setOnAction { gererSelectionSuspect() }
     }
 
+    private val body : GridPane = GridPane()
+
+    private val grille : Grille
+
     init {
         this.style = "-fx-background-color: #5293c4"
         initialiserInterface()
+
+        grille = Grille(modele)
+
+        val scrollPane = ScrollPane(grille.setupInGrid(body))
+        this.center = scrollPane
     }
 
     private fun initialiserInterface() {

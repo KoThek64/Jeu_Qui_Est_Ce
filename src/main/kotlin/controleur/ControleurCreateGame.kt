@@ -45,7 +45,7 @@ class ControleurCreateGame(
                                     if (personnage == selectedCharacter) {
                                         modele.partieEnCours!!.choisirPersonnage(personnage, x, y)
 
-                                        val gameVue = VuePartieLancee()
+                                        val gameVue = VuePartieLancee(modele)
                                         val controller = ControleurGame(modele, gameVue, stage)
                                         val nouvelleScene = Scene(gameVue, 1920.0, 1080.0)
                                         stage.scene = nouvelleScene
