@@ -7,7 +7,7 @@ import javafx.scene.control.Alert
 import javafx.stage.Stage
 import modele.Modele
 import modele.Partie
-import vue.VueChoseCharacter
+import vue.VueChoisirPersonnage
 import vue.VuePartieLancee
 import vue.VueRejoindrePartie
 
@@ -52,7 +52,7 @@ class ControleurBoutonValiderPartie(
         if (connexion !is Exception) {
             partie.rafraichirEtat()
 
-            var vueJeu = VueChoseCharacter(modele)
+            var vueJeu = VueChoisirPersonnage(modele)
 
             vueJeu.footer.validateButton.setOnAction {
                 val otherGrille = modele.partieEnCours!!.otherGrille
@@ -65,7 +65,7 @@ class ControleurBoutonValiderPartie(
                             )
 
                             val gameVue = VuePartieLancee(modele)
-                            val controller = ControleurGame(modele, gameVue, stage)
+                            val controller = ControleuJeu(modele, gameVue, stage)
                             val scene = Scene(gameVue, 1920.0, 1080.0)
                             stage.scene = scene
                             return@forEachIndexed

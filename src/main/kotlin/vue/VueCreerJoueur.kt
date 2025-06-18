@@ -2,7 +2,6 @@ package vue
 
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
-import javafx.geometry.HPos
 import javafx.geometry.Insets
 import javafx.geometry.Pos
 import javafx.scene.control.Button
@@ -14,7 +13,7 @@ import javafx.scene.paint.Color
 import javafx.scene.text.Font
 import javafx.scene.text.FontWeight
 
-class VueCreatePlayer : BorderPane() {
+class VueCreerJoueur : BorderPane() {
 
     private val header: GridPane = GridPane()
     private val body: GridPane = GridPane()

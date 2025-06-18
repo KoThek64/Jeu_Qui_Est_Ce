@@ -6,12 +6,12 @@ import javafx.scene.Scene
 import javafx.scene.control.Alert
 import javafx.stage.Stage
 import modele.Modele
-import vue.VueCreateJoinGame
-import vue.VueCreatePlayer
+import vue.VueCreerRejoindrePartie
+import vue.VueCreerJoueur
 
-class ControleurCreatePlayer(
+class ControleurCreerJoueur(
     private val modele: Modele,
-    private val vue: VueCreatePlayer,
+    private val vue: VueCreerJoueur,
     private val stage: Stage
 ) : EventHandler<ActionEvent> {
 
@@ -29,12 +29,12 @@ class ControleurCreatePlayer(
         val creation = modele.inscription(nom, prenom)
 
         if (creation !is Exception) {
-            val vueSuivante = VueCreateJoinGame(modele)
+            val vueSuivante = VueCreerRejoindrePartie(modele)
 
-            vueSuivante.fixeControleurBouton(vueSuivante.rulesButton, ControleurRules(vueSuivante))
-            vueSuivante.fixeControleurBouton(vueSuivante.backButton, ControleurRulesBackButton(vueSuivante))
-            vueSuivante.fixeControleurBouton(vueSuivante.createGameButton, ControleurCreateGame(modele, vueSuivante, stage))
-            vueSuivante.fixeControleurBouton(vueSuivante.joinGameButton, ControleurJoinGame(modele, vueSuivante, stage))
+            vueSuivante.fixeControleurBouton(vueSuivante.rulesButton, ControleurRegles(vueSuivante))
+            vueSuivante.fixeControleurBouton(vueSuivante.backButton, ControleurReglesBoutonRetour(vueSuivante))
+            vueSuivante.fixeControleurBouton(vueSuivante.createGameButton, ControleurCreerPartie(modele, vueSuivante, stage))
+            vueSuivante.fixeControleurBouton(vueSuivante.joinGameButton, ControleurRejoindrePartie(modele, vueSuivante, stage))
 
             val scene = Scene(vueSuivante, 1920.0, 1080.0)
             stage.scene = scene

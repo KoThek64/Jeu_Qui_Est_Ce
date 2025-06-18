@@ -12,7 +12,7 @@ import modele.Modele
 /**
  * Vue pour choisir un personnage dans une grille
  */
-class VueChoseCharacter(
+class VueChoisirPersonnage(
     private val modele: Modele
 ): BorderPane() {
 

@@ -2,9 +2,9 @@ package controleur
 
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
-import vue.VueCreateJoinGame
+import vue.VueCreerRejoindrePartie
 
-class ControleurRules(private val vue: VueCreateJoinGame): EventHandler<ActionEvent> {
+class ControleurRegles(private val vue: VueCreerRejoindrePartie): EventHandler<ActionEvent> {
 
     override fun handle(event: ActionEvent) {
         vue.rulesVue()

@@ -23,7 +23,7 @@ import javafx.scene.text.Text
 import javafx.scene.text.TextAlignment
 import modele.Modele
 
-class VueCreateJoinGame(
+class VueCreerRejoindrePartie(
     private val modele: Modele
 ): BorderPane() {
 

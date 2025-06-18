@@ -6,14 +6,14 @@ import javafx.event.EventHandler
 import javafx.scene.Scene
 import javafx.stage.Stage
 import modele.Modele
-import vue.VueChoseCharacter
-import vue.VueCreateJoinGame
+import vue.VueChoisirPersonnage
+import vue.VueCreerRejoindrePartie
 import vue.VuePartieLancee
 import java.util.*
 
-class ControleurCreateGame(
+class ControleurCreerPartie(
     private val modele: Modele,
-    private val vue: VueCreateJoinGame,
+    private val vue: VueCreerRejoindrePartie,
     private val stage: Stage
 ) : EventHandler<ActionEvent> {
 
@@ -31,7 +31,7 @@ class ControleurCreateGame(
                 if (etapeActuelle == "INITIALISATION") {
                     Platform.runLater {
 
-                        val vueJeu = VueChoseCharacter(modele)
+                        val vueJeu = VueChoisirPersonnage(modele)
                         val scene = Scene(vueJeu, 1920.0, 1080.0)
 
                         val selfGrille = modele.partieEnCours?.selfGrille
@@ -46,7 +46,7 @@ class ControleurCreateGame(
                                         modele.partieEnCours!!.choisirPersonnage(personnage, x, y)
 
                                         val gameVue = VuePartieLancee(modele)
-                                        val controller = ControleurGame(modele, gameVue, stage)
+                                        val controller = ControleuJeu(modele, gameVue, stage)
                                         val nouvelleScene = Scene(gameVue, 1920.0, 1080.0)
                                         stage.scene = nouvelleScene
                                         return@forEachIndexed
