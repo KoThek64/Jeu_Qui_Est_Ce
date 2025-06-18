@@ -7,7 +7,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
-
 class requeteCreationPlayerTests {
     private lateinit var client: QuiEstCeClient
 
@@ -177,15 +176,6 @@ class requeteCreationPlayerTests {
 
 
 
-//    @Test
-//    fun `test création partie valide`() {
-//        val joueur = client.requeteCreationJoueur("Dupont", "Jean")
-//        val partie = client.requeteCreationPartie(joueur.id, joueur.cle)
-//        assertNotNull(partie)
-//        assertTrue(partie.id > 0)
-//        assertEquals(joueur, partie.joueurCreateur)
-//    }
-//
 //    @Test
 //    fun `test rejoindre partie valide`() {
 //        // Création du premier joueur et de la partie
