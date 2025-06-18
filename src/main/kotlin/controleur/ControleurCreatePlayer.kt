@@ -29,7 +29,7 @@ class ControleurCreatePlayer(
         val creation = modele.inscription(nom, prenom)
 
         if (creation !is Exception) {
-            val vueSuivante = VueCreateJoinGame()
+            val vueSuivante = VueCreateJoinGame(modele)
 
             vueSuivante.fixeControleurBouton(vueSuivante.rulesButton, ControleurRules(vueSuivante))
             vueSuivante.fixeControleurBouton(vueSuivante.backButton, ControleurRulesBackButton(vueSuivante))

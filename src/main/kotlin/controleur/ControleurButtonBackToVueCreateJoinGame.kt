@@ -15,7 +15,7 @@ class ControleurButtonBackToVueCreateJoinGame(
 ) : EventHandler<ActionEvent> {
 
     override fun handle(event: ActionEvent) {
-        val vueSuivante = VueCreateJoinGame()
+        val vueSuivante = VueCreateJoinGame(modele)
 
         vueSuivante.fixeControleurBouton(vueSuivante.rulesButton, ControleurRules(vueSuivante))
         vueSuivante.fixeControleurBouton(vueSuivante.backButton, ControleurRulesBackButton(vueSuivante))

@@ -21,8 +21,11 @@ import javafx.scene.text.Font
 import javafx.scene.text.FontWeight
 import javafx.scene.text.Text
 import javafx.scene.text.TextAlignment
+import modele.Modele
 
-class VueCreateJoinGame: BorderPane() {
+class VueCreateJoinGame(
+    private val modele: Modele
+): BorderPane() {
 
     private val header : GridPane = GridPane()
     private val body : GridPane = GridPane()
@@ -184,4 +187,29 @@ class VueCreateJoinGame: BorderPane() {
         body.children.add(rulesBox)
     }
 
+    fun attenteJoueur2() {
+
+        body.children.clear()
+        body.columnConstraints.clear()
+        body.rowConstraints.clear()
+
+        val box = VBox()
+
+        val textAttente = Text("En attente d'un second joueur").apply {
+            font = Font.font("Arial", FontWeight.BLACK, 48.0)
+            fill = Color.BLACK
+        }
+
+        val textIdPartie = Text("ID de la partie : ${modele.partieEnCours!!.id}").apply {
+            font = Font.font("Arial", FontWeight.NORMAL, 24.0)
+            fill = Color.BLACK
+            textAlignment = TextAlignment.CENTER
+        }
+
+        box.alignment = Pos.CENTER
+        box.spacing = 20.0
+
+        box.children.addAll(textAttente, textIdPartie)
+        body.children.add(box)
+    }
 }

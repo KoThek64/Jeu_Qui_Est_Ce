@@ -6,10 +6,10 @@ import info.but1.sae2025.data.IdentificationJoueur
 class Modele(private val client: QuiEstCeClient) {
 
     // Stocke les informations du joueur principal après son inscription.
-    private var monJoueur: IdentificationJoueur? = null
+    var monJoueur: IdentificationJoueur? = null
 
     // Stocke la partie actuellement en cours.
-    private var partieEnCours: Partie? = null
+    var partieEnCours: Partie? = null
 
 
     fun inscription(nom: String, prenom: String): Exception? {
@@ -34,10 +34,6 @@ class Modele(private val client: QuiEstCeClient) {
             this.partieEnCours = Partie(client, this.monJoueur!!.id, this.monJoueur!!.cle, client.requeteCreationPartie(this.monJoueur!!.id, this.monJoueur!!.cle))
             return true
         }
-    }
-
-    fun getPartieEnCours(): Partie? {
-        return this.partieEnCours
     }
 
     fun getListeParties(): List<Int> {
