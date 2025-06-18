@@ -4,6 +4,7 @@ import info.but1.sae2025.QuiEstCeClient
 import info.but1.sae2025.data.EtatPartie
 import info.but1.sae2025.data.Joueur
 import info.but1.sae2025.data.Personnage
+import info.but1.sae2025.exceptions.QuiEstCeException
 
 class Partie(
     private val client: QuiEstCeClient,
@@ -56,9 +57,19 @@ class Partie(
     fun rejoindrePartie(idPartie: Int,
                         idJoueur: Int,
                         cleJoueur: String
-    ){
+    ) : Exception? {
+        try {
+            this.etat = client.requeteRejoindrePartie(idPartie, idJoueur, cleJoueur)
+            this.id = idPartie
+            return null
+        } catch (e: Exception) {
+            return e
+        }
+
+        /*
         this.etat = client.requeteRejoindrePartie(idPartie, idJoueur, cleJoueur)
         this.id = idPartie
+         */
     }
 
 }
