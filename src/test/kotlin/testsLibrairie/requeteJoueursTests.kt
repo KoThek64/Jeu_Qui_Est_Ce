@@ -1,4 +1,4 @@
-package test
+package test.testsLibrairie
 
 import info.but1.sae2025.QuiEstCeClient
 import org.junit.jupiter.api.Assertions.assertNotNull
