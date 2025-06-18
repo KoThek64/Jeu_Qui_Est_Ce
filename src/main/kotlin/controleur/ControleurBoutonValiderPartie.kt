@@ -5,28 +5,21 @@ import javafx.event.EventHandler
 import javafx.scene.Scene
 import javafx.stage.Stage
 import modele.Modele
-import vue.VueCreateJoinGame
 import vue.VueGame
+import vue.VueRejoindrePartie
 
-class ControleurCreateGame(
+class ControleurBoutonValiderPartie(
     private val modele: Modele,
-    private val vue: VueCreateJoinGame,
+    private val vue: VueRejoindrePartie,
     private val stage: Stage
 ) : EventHandler<ActionEvent> {
 
     override fun handle(event: ActionEvent) {
-        modele.creerPartie()
-
-        while (modele.partieEnCours?.etat == null) {
-            vue.attenteJoueur2()
-
-            modele.partieEnCours?.rafraichirEtat()
-        }
+        modele.partieEnCours?.rejoindrePartie(vue.chooseGameID.text.toInt(), modele.monJoueur!!.id, modele.monJoueur!!.cle)
 
         val vueSuivante = VueGame(modele)
 
         val scene = Scene(vueSuivante, 1920.0, 1080.0)
         stage.scene = scene
     }
-
 }
