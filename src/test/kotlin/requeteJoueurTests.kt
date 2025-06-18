@@ -17,17 +17,10 @@ class requeteJoueurTests {
         client = QuiEstCeClient("localhost", 8080)
     }
 
-    //-----------INITIALISATION POUR LES TESTS DE LA REQUETE DE RECUPERATION DU JOUEUR-----------//
-    fun id() : Int{
-        val listeId = client.requeteJoueurs()
-        val random = listeId.random()
-        return random
-    }
-
     //-----------TESTS DE LA REQUETE DE RECUPERATION DU JOUEUR-----------//
     @Test
     fun requeteJoueurValide() {
-        val joueur = client.requeteJoueur(id())
+        val joueur = client.requeteJoueur(InitTests().id())
         assertNotNull(client.requeteJoueurs())
         assertTrue(joueur.nom.isNotEmpty())
         assertTrue(joueur.prenom.isNotEmpty())
