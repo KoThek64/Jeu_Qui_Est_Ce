@@ -66,6 +66,12 @@ class ControleurBoutonValiderPartie(
                             modele.partieEnCours!!.choisirPersonnage(
                                 pers, x, y
                             )
+
+                            val gameVue = VuePartieLancee()
+                            val controller = ControleurGame(modele, gameVue, stage)
+                            val scene = Scene(gameVue, 1920.0, 1080.0)
+                            stage.scene = scene
+                            return@forEachIndexed
                         }
                     }
                 }

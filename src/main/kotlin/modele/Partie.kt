@@ -95,8 +95,6 @@ class Partie(
         println("Choix du personnage : $personnage")
         client.requeteChoixPersonnage(id, joueurId, joueurCle, x, y)
         personnageChoisis = personnage
-
-        TODO("changer la vue pour le game (attendre que l'autre choisissse son personnage aussi)")
     }
 
 }
