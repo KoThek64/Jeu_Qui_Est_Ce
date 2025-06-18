@@ -60,7 +60,7 @@ class VueRejoindrePartie(private val modele: Modele) : BorderPane() {
         val textAreaParties = TextArea().apply {
             font = Font.font("Arial", FontWeight.NORMAL, 36.0)
         }
-        textAreaParties.text = listOf(modele.getListeParties()).joinToString("\n")
+        textAreaParties.text = modele.getListeParties().joinToString("\n")
         textAreaParties.isEditable = false
         textAreaParties.prefWidth = 20.0
         textAreaParties.prefHeight = 750.0
