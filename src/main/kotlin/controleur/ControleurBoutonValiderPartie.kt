@@ -47,8 +47,12 @@ class ControleurBoutonValiderPartie(
             idPartie
         )
 
+        modele.partieEnCours = partie
+
         val connexion = partie.rejoindrePartie(idPartie, joueurId!!, joueurCle!!)
         if (connexion !is Exception) {
+            partie.rafraichirEtat()
+
             // Afficher la vue de partie lancée ou autre selon le flow
             val vueJeu = VueChoseCharacter(modele)
             val scene = Scene(vueJeu, 1920.0, 1080.0)
@@ -64,16 +68,5 @@ class ControleurBoutonValiderPartie(
             alert.showAndWait()
             return
         }
-
-
-
-        /*
-        modele.partieEnCours?.rejoindrePartie(vue.chooseGameID.text.toInt(), modele.monJoueur!!.id, modele.monJoueur!!.cle)
-
-        val vueSuivante = VueGame(modele)
-
-        val scene = Scene(vueSuivante, 1920.0, 1080.0)
-        stage.scene = scene
-         */
     }
 }

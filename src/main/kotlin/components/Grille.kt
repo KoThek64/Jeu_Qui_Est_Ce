@@ -155,7 +155,7 @@ class Grille(
      *
      * @param grilleModel Le modèle de grille contenant les personnages à afficher
      */
-    fun updateCharacterGrid(grilleModel: modele.Grille?) {
+    fun updateCharacterGrid(grilleModel: modele.Grille?, idJoueur: Int) {
         if (grilleModel == null) {
             println("Attention: Grille modèle est null - aucun personnage à afficher")
             return
@@ -163,7 +163,7 @@ class Grille(
 
         val personnages = grilleModel.getPersonnages()
         println("Mise à jour de la grille d'affichage avec ${personnages.flatten().size} personnages")
-        grilleModel.recupererGrille(modele.partieEnCours!!.id, modele.partieEnCours!!.etat!!.idJoueur1 , modele.getClient())
+        grilleModel.recupererGrille(modele.partieEnCours!!.id, idJoueur , modele.getClient())
         this.updateGrid(grilleModel.getPersonnages())
     }
 }

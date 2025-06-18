@@ -41,7 +41,13 @@ class VueChoseCharacter(
      * @param grilleModel Le modèle de grille contenant les personnages à afficher
      */
     fun updateCharacterGrid(grilleModel: modele.Grille?) {
-        grille.updateCharacterGrid(grilleModel)
+        val monId = modele.monJoueur!!.id
+        val autreJoueurId = if (monId == modele.partieEnCours!!.etat!!.idJoueur1) {
+            modele.partieEnCours!!.etat!!.idJoueur1
+        }else {
+            modele.partieEnCours!!.etat!!.idJoueur2
+        }
+        grille.updateCharacterGrid(grilleModel, autreJoueurId)
     }
 
     /**

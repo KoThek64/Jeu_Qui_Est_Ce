@@ -19,7 +19,7 @@ class VueCreatePlayer : BorderPane() {
     private val header: GridPane = GridPane()
     private val body: GridPane = GridPane()
     val createAccount: Button
-    val alreadyAccount: Button
+
 
     val prenom: TextField = TextField()
     val nom: TextField = TextField()
@@ -74,9 +74,8 @@ class VueCreatePlayer : BorderPane() {
         nom.style = fieldStyle()
 
         createAccount = boutonStyle("Créer un compte")
-        alreadyAccount = boutonStyle("J'ai déjà un compte")
 
-        val bodyButtons = VBox(30.0, prenom, nom, alreadyAccount, createAccount).apply {
+        val bodyButtons = VBox(30.0, prenom, nom, createAccount).apply {
             alignment = Pos.CENTER
         }
 

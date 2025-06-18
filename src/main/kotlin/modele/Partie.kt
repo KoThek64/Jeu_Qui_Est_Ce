@@ -26,37 +26,32 @@ class Partie(
     }
 
     private fun chargerLesGrilles() {
-        if (etat == null) {
-            throw Error("L'état ne doit pas être null")
-        }
+        if (etat == null) throw Error("L'état ne doit pas être null")
         val nonNullEtat = etat!!
-        println("État de la partie récupéré: joueur1=${nonNullEtat.idJoueur1}, joueur2=${nonNullEtat.idJoueur2}")
 
         try {
-            // Récupération de la grille du joueur courant
-            val grilleJoueur = client.requeteGrilleJoueur(this.id, this.joueurId)
-            selfGrille.apply {
-                recupererGrille(this@Partie.id, this@Partie.joueurId, client)
-            }
+            // Grille du joueur courant
+            val selfGrilleData = client.requeteGrilleJoueur(this.id, this.joueurId)
+            selfGrille.setPersonnages(selfGrilleData)
 
-            // Pour la grille adverse, on ne la charge que si l'autre joueur est présent
+            // Grille de l’adversaire si présent
             if (nonNullEtat.idJoueur2 > 0) {
                 val idAdverse = if (this.joueurId == nonNullEtat.idJoueur1) {
                     nonNullEtat.idJoueur2
                 } else {
                     nonNullEtat.idJoueur1
                 }
-                otherGrille.apply {
-                    recupererGrille(this@Partie.id, idAdverse, client)
-                }
+                val otherGrilleData = client.requeteGrilleJoueur(this.id, idAdverse)
+                otherGrille.setPersonnages(otherGrilleData)
             }
 
-            println("Grilles chargées: ${selfGrille.getPersonnages().flatten().size} personnages pour le joueur courant")
+            println("Grilles chargées : ${selfGrille.getPersonnages().flatten().size} pour le joueur courant")
         } catch (e: Exception) {
-            println("Erreur lors du chargement des grilles: ${e.message}")
+            println("Erreur lors du chargement des grilles : ${e.message}")
             throw e
         }
     }
+
 
     fun poserQuestion(idJoueur: Int, cleJoueur: String, question: String) {
         if(question.isBlank()){

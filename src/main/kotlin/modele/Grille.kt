@@ -15,6 +15,10 @@ class Grille() {
         this.personnages = client.requeteGrilleJoueur(idPartie, idJoueur)
     }
 
+    fun setPersonnages(nouveauxPersonnages: List<List<Personnage>>) {
+        this.personnages = nouveauxPersonnages
+    }
+
     fun getPersonnages(): List<List<Personnage>> {
         return this.personnages
     }
