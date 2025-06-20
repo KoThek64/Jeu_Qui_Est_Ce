@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test
 
 class requeteEtatPartieTests {
     private lateinit var client: QuiEstCeClient
+    private val initTests = InitTests()
 
     @BeforeEach
     fun setup() {
@@ -15,7 +16,7 @@ class requeteEtatPartieTests {
     //-----------TESTS DE LA REQUETE DE RECUPERATION DE L'ETAT DE LA PARTIE-----------//
     @Test
     fun requeteEtatPartieValide() {
-        val etat = client.requeteEtatPartie(InitTests().idJoueurs())
+        val etat = client.requeteEtatPartie(initTests.idJoueurs())
         //TODO("à finir...")
     }
 }

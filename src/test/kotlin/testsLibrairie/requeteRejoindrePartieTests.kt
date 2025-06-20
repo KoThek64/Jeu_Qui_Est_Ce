@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test
 class requeteRejoindrePartieTests {
 
     private lateinit var client: QuiEstCeClient
+    private val initTests = InitTests()
 
     @BeforeEach
     fun setup() {
@@ -18,8 +19,8 @@ class requeteRejoindrePartieTests {
     //-----------TESTS DE LA REQUETE REJOINDRE UNE PARTIE-----------//
     @Test
     fun requeteRejoindrePartieValide() {
-        val joueur = client.requeteCreationJoueur(InitTests().nom(), InitTests().prenom())
-        val id = InitTests().idPartie()
+        val joueur = client.requeteCreationJoueur(initTests.nom(), initTests.prenom())
+        val id = initTests.idPartie()
         val reponse = client.requeteRejoindrePartie(id, joueur.id, joueur.cle)
         assertNotNull(reponse)
         assertTrue(reponse.idJoueur1 == joueur.id)
