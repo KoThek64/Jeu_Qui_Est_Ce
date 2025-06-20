@@ -11,6 +11,7 @@ import kotlin.random.Random
 
 class requeteJoueurTests {
     private lateinit var client: QuiEstCeClient
+    private val initTests = InitTests()
 
     @BeforeEach
     fun setup() {
@@ -20,7 +21,7 @@ class requeteJoueurTests {
     //-----------TESTS DE LA REQUETE DE RECUPERATION DU JOUEUR-----------//
     @Test
     fun requeteJoueurValide() {
-        val joueur = client.requeteJoueur(InitTests().idJoueurs())
+        val joueur = client.requeteJoueur(initTests.idJoueurs())
         assertNotNull(client.requeteJoueurs())
         assertTrue(joueur.nom.isNotEmpty())
         assertTrue(joueur.prenom.isNotEmpty())

@@ -9,6 +9,7 @@ import org.junit.jupiter.api.assertThrows
 
 class requeteCreationPlayerTests() {
     private lateinit var client: QuiEstCeClient
+    private val initTests = InitTests()
 
     @BeforeEach
     fun setup() {
@@ -19,7 +20,7 @@ class requeteCreationPlayerTests() {
     //-----------TESTS DE LA REQUETE DE CREATION D'UN JOUEUR-----------//
     @Test
     fun requeteCreationJoueurValideNonNull() {
-        val joueur = client.requeteCreationJoueur(InitTests().nom(), InitTests().prenom())
+        val joueur = client.requeteCreationJoueur(initTests.nom(), initTests.prenom())
         assertNotNull(joueur)
         assertTrue(joueur.id > 0)
         assertNotNull(joueur.cle)
@@ -27,7 +28,7 @@ class requeteCreationPlayerTests() {
 
     @Test
     fun requeteCreationJoueurValideNomComposé() {
-        val joueur = client.requeteCreationJoueur(InitTests().nomsCompose(), InitTests().prenom())
+        val joueur = client.requeteCreationJoueur(initTests.nomsCompose(), initTests.prenom())
         assertNotNull(joueur)
         assertTrue(joueur.id > 0)
         assertNotNull(joueur.cle)
@@ -35,7 +36,7 @@ class requeteCreationPlayerTests() {
 
     @Test
     fun requeteCreationJoueurValidePrenomComposé() {
-        val joueur = client.requeteCreationJoueur(InitTests().nom(), InitTests().prenomsCompose())
+        val joueur = client.requeteCreationJoueur(initTests.nom(), initTests.prenomsCompose())
         assertNotNull(joueur)
         assertTrue(joueur.id > 0)
         assertNotNull(joueur.cle)
@@ -43,7 +44,7 @@ class requeteCreationPlayerTests() {
 
     @Test
     fun requeteCreationJoueurValideCaracteresSpeciaux1() {
-        val joueur = client.requeteCreationJoueur(InitTests().nomsApostrophe(), InitTests().prenom())
+        val joueur = client.requeteCreationJoueur(initTests.nomsApostrophe(), initTests.prenom())
         assertNotNull(joueur)
         assertTrue(joueur.id > 0)
         assertNotNull(joueur.cle)
@@ -51,7 +52,7 @@ class requeteCreationPlayerTests() {
 
     @Test
     fun requeteCreationJoueurValideCaracteresSpeciaux2() {
-        val joueur = client.requeteCreationJoueur(InitTests().nom(), InitTests().prenomsApostrophe())
+        val joueur = client.requeteCreationJoueur(initTests.nom(), initTests.prenomsApostrophe())
         assertNotNull(joueur)
         assertTrue(joueur.id > 0)
         assertNotNull(joueur.cle)
@@ -60,14 +61,14 @@ class requeteCreationPlayerTests() {
     @Test
     fun requeteCreationJoueurNomNull() {
         assertThrows<IllegalArgumentException> {
-            client.requeteCreationJoueur("", InitTests().prenom())
+            client.requeteCreationJoueur("", initTests.prenom())
         }
     }
 
     @Test
     fun requeteCreationJoueurPrenomNull() {
         assertThrows<IllegalArgumentException> {
-            client.requeteCreationJoueur(InitTests().nom(), "")
+            client.requeteCreationJoueur(initTests.nom(), "")
         }
     }
 

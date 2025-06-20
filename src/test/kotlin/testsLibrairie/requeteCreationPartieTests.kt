@@ -11,6 +11,7 @@ import kotlin.random.Random
 
 class requeteCreationPartieTests {
     private lateinit var client: QuiEstCeClient
+    private val initTests = InitTests()
 
     @BeforeEach
     fun setup() {
@@ -20,7 +21,7 @@ class requeteCreationPartieTests {
     //-----------TESTS DE LA REQUETE DE CREATION DE PARTIE-----------//
     @Test
     fun requeteCreationPartieValide() {
-        val joueur = client.requeteCreationJoueur(InitTests().nom(), InitTests().prenom())
+        val joueur = client.requeteCreationJoueur(initTests.nom(), initTests.prenom())
         val id = client.requeteCreationPartie(joueur.id, joueur.cle)
         assertNotNull(id)
         assertTrue(id > 0)
@@ -29,21 +30,21 @@ class requeteCreationPartieTests {
     @Test
     fun requeteCreationPartieCleJoueurVide() {
         assertThrows<IllegalArgumentException> {
-            client.requeteCreationPartie(InitTests().idJoueurs(), "")
+            client.requeteCreationPartie(initTests.idJoueurs(), "")
         }
     }
 
     @Test
     fun requeteCreationPartieCleJoueurIncorrecte() {
         assertThrows<IllegalArgumentException> {
-            client.requeteCreationPartie(InitTests().idJoueurs(), "CleIncorrecte")
+            client.requeteCreationPartie(initTests.idJoueurs(), "CleIncorrecte")
         }
     }
 
     @Test
     fun requeteCreationPartieIdJoueurInvalide(){
         val n1 = Random.nextInt(1,999999999)
-        val joueur = client.requeteCreationJoueur(InitTests().nom(), InitTests().prenom())
+        val joueur = client.requeteCreationJoueur(initTests.nom(), initTests.prenom())
         assertThrows<QuiEstCeException> {
             client.requeteCreationPartie(n1, joueur.cle)
         }
@@ -52,7 +53,7 @@ class requeteCreationPartieTests {
     @Test
     fun requeteCreationPartieIdJoueurTropGrand(){
         val n = Random.nextInt(10000000000.toInt(), Int.MAX_VALUE)
-        val joueur = client.requeteCreationJoueur(InitTests().nom(), InitTests().prenom())
+        val joueur = client.requeteCreationJoueur(initTests.nom(), initTests.prenom())
         assertThrows<QuiEstCeException> {
             client.requeteCreationPartie(n, joueur.cle)
         }
