@@ -130,7 +130,8 @@ class   Grille(
 
         val personnages = grilleModel.personnages
         println("Mise à jour de la grille d'affichage avec ${personnages.flatten().size} personnages")
-        grilleModel.recupererGrille(modele.partieEnCours!!.id, idJoueur , modele.getClient())
+        // Ne pas recharger les grilles ici car elles sont déjà chargées par rafraichirEtat()
+        // grilleModel.recupererGrille(modele.partieEnCours!!.id, idJoueur , modele.getClient())
         this.updateGrid(grilleModel.personnages)
     }
 }

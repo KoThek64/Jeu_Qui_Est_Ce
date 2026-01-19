@@ -131,175 +131,117 @@
 
 ---
 
-## 🚀 Installation et lancement
+## ⚠️ Statut du projet
 
-### Prérequis
+**Ce projet n'a malheureusement pas été terminé.**
 
-- **JDK 21** ou supérieur
-- **Gradle** (wrapper inclus dans le projet)
+Le jeu "Qui est-ce ?" devait être une application JavaFX client-serveur permettant de jouer au célèbre jeu de devinettes entre deux joueurs. Malgré les efforts investis dans la conception et le développement, plusieurs problèmes techniques n'ont pas pu être résolus dans les délais impartis, rendant le jeu non fonctionnel.
 
-### Installation
+### Ce qui a été réalisé
 
-```bash
-# 1. Cloner le projet
-git clone https://github.com/KoThek64/Jeu_Qui_Est_Ce.git
-cd 2025.sae201.22
+- ✅ **Architecture client-serveur** : Structure de base avec communication HTTP
+- ✅ **Modèle de données** : Classes pour gérer les joueurs, parties, personnages
+- ✅ **Interface graphique** : Plusieurs vues JavaFX (création joueur, sélection partie, grille de jeu)
+- ✅ **Contrôleurs** : Logique de navigation entre les écrans
+- ✅ **Tests unitaires** : Batterie de tests pour valider les requêtes et le modèle
+- ✅ **Documentation** : Diagrammes UML, maquettes, documentation technique
 
-# 2. Compiler le projet
-./gradlew build
+### Problèmes non résolus
+
+- ❌ **Synchronisation client-serveur** : Problèmes de timing lors de la connexion de deux joueurs
+- ❌ **Gestion d'état** : Blocages dans l'interface lors des transitions entre états de partie
+- ❌ **Stabilité** : L'application se bloque fréquemment et ne permet pas de jouer complètement une partie
+
+## 📚 Documentation
+
+La documentation complète du projet est disponible dans le dossier `documentation/` :
+
+- **Analyse** : Document d'analyse du projet (`Analyse.sdr`)
+- **Conception** : Diagrammes UML et architecture (`ConceptionArchitecturale.puml`, `modelesUML.pdf`)
+- **Maquettes** : Interfaces graphiques prévues (`maquette.pdf`, `maquette-v2.pdf`)
+- **Tests** : Documentation des tests unitaires (`Tests_unitaire_Approche_Fonctionnelle_Qui-Est-Ce-Client.pdf`)
+- **Testabilité** : Approche de testabilité du code (`Testabilité.pdf`)
+- **Documentation code** : Javadoc/Dokka dans `documentation/html/`
+
+## 🛠️ Technologies utilisées
+
+- **Langage** : Kotlin 2.1.0
+- **Build** : Gradle 8.9
+- **Interface** : JavaFX 21
+- **Client HTTP** : Ktor Client 3.1.3
+- **Sérialisation** : kotlinx-serialization
+- **Tests** : JUnit 5
+
+## 📁 Structure du projet
+
 ```
+2025.sae201.22/
+├── src/
+│   ├── main/kotlin/          # Code source de l'application
+│   │   ├── controleur/       # Contrôleurs JavaFX
+│   │   ├── modele/           # Modèle de données
+│   │   ├── vue/              # Vues JavaFX
+│   │   └── components/       # Composants réutilisables
+│   └── test/kotlin/          # Tests unitaires
+├── libs/                     # Bibliothèques externes
+│   ├── sae-qui-est-ce-client-1.1.jar
+│   └── server-all.jar
+├── resources/                # Ressources (images, CSV)
+├── documentation/            # Documentation du projet
+└── build.gradle.kts         # Configuration Gradle
+```
+
+## 📝 Travail réalisé
+
+### Architecture
+
+- Implémentation du pattern MVC (Modèle-Vue-Contrôleur)
+- Communication client-serveur via requêtes HTTP
+- Gestion des états de partie (ATTENTE, INITIALISATION, EN_COURS, TERMINE)
+
+### Fonctionnalités implémentées
+
+1. **Création de joueur** : Interface et logique pour créer un compte
+2. **Création de partie** : Un joueur peut créer une nouvelle partie
+3. **Rejoindre une partie** : Liste des parties disponibles et possibilité de rejoindre
+4. **Sélection de personnage** : Grille interactive pour choisir son personnage secret
+5. **Grille de jeu** : Affichage des 24 personnages avec leurs caractéristiques
+
+### Tests
+
+- 75 tests unitaires couvrant :
+  - Création de joueur
+  - Création et gestion de parties
+  - Requêtes réseau (grilles, états, questions/réponses)
+  - Validation des données
+
+## 🎓 Contexte académique
+
+Ce projet a été réalisé dans le cadre de la **SAE 2.01** du BUT Informatique, avec pour objectif d'appliquer les compétences en :
+- Programmation orientée objet (Kotlin)
+- Développement d'interfaces graphiques (JavaFX)
+- Architecture client-serveur
+- Tests unitaires et qualité logicielle
+- Travail en équipe et gestion de projet
+
+Bien que non terminé, ce projet a permis d'acquérir de l'expérience sur les défis du développement d'applications distribuées et de l'importance de la gestion des états asynchrones.
+
+## 🔮 Pistes d'amélioration futures
+
+Si le projet devait être repris, voici les axes prioritaires :
+
+1. **Refonte de la synchronisation** : Utiliser WebSockets au lieu de polling HTTP pour une meilleure réactivité
+2. **Gestion des états** : Implémenter une machine à états plus robuste avec gestion des erreurs
+3. **Interface asynchrone** : Mieux gérer les tâches longues pour éviter les blocages de l'interface
+4. **Tests d'intégration** : Ajouter des tests bout-en-bout avec un serveur de test
+5. **Configuration** : Externaliser les paramètres (IP serveur, port) dans un fichier de configuration
+
+## 📧 Contact
+
+Projet réalisé dans le cadre du BUT Informatique - IUT de Nantes
 
 ---
 
-### 🎮 Lancer le jeu
-
-Le jeu fonctionne en **architecture client-serveur**. Vous devez démarrer le serveur avant de lancer le client.
-
-#### 📋 Configuration initiale (à faire une seule fois)
-
-Créer le lien symbolique pour les ressources du serveur :
-
-```bash
-ln -s resources/resources files
-```
-
-#### 🖥️ Étape 1 : Démarrer le serveur
-
-**Ouvrez un terminal** et exécutez :
-
-**Linux/Mac** :
-```bash
-# Option A : Avec le script (recommandé)
-./start-server.sh
-
-# Option B : Manuellement
-sudo java -jar libs/server-all.jar
-```
-
-**Windows** :
-```bash
-# En tant qu'administrateur
-java -jar libs\server-all.jar
-```
-
-Le serveur démarre sur `http://localhost:80`
-
-> 💡 **Note importante** : Le script demandera votre mot de passe `sudo` car le serveur utilise le port 80 (privilèges administrateur requis sur Linux/Mac)
-
-Vous devriez voir :
-```
-***** Server running on 0.0.0.0:80 using resources directory: files
-```
-
-> ⚠️ **Le serveur doit rester actif** pendant toute la durée du jeu ! Ne fermez pas ce terminal.
-
-#### 🎮 Étape 2 : Lancer le client (le jeu)
-
-**Ouvrez un SECOND terminal** et exécutez :
-
-**Linux/Mac** :
-```bash
-./gradlew run
-```
-
-**Windows** :
-```bash
-gradlew.bat run
-```
-
-🎉 **L'interface graphique du jeu s'ouvre automatiquement !**
-
----
-
-### 🌐 Pour jouer à plusieurs
-
-Chaque joueur doit :
-1. Lancer son propre client avec `./gradlew run` (sur son ordinateur)
-2. Se connecter au même serveur (modifier l'IP dans `src/main/kotlin/Main.kt` si nécessaire)
-3. Les joueurs peuvent être sur le même réseau local ou sur Internet si le serveur est accessible
-
----
-
-### 🧪 Tests
-
-```bash
-# Exécuter tous les tests
-./gradlew test
-
-# Les tests nécessitent le serveur actif pour tous passer :
-# Terminal 1 : sudo java -jar libs/server-all.jar
-# Terminal 2 : ./gradlew test
-
-# Voir le rapport de tests dans le navigateur
-xdg-open build/reports/tests/test/index.html
-```
-
-> 💡 **Note** : Les tests peuvent échouer si le serveur n'est pas démarré, mais le build réussira quand même grâce à `ignoreFailures = true`.
-
----
-
-### 📦 Compilation sans exécuter les tests
-
-```bash
-./gradlew assemble
-```
-
----
-
-### 🔧 Dépannage
-
-#### Problème : "Permission non accordée" sur le port 80
-
-**Solution** : Utilisez `sudo` pour lancer le serveur
-```bash
-sudo java -jar libs/server-all.jar
-```
-
-#### Problème : "FileNotFoundException: files/but1.csv"
-
-**Solution** : Créez le lien symbolique
-```bash
-ln -s resources/resources files
-```
-
-#### Problème : "Connexion refusée" ou "ConnectTimeoutException"
-
-**Solutions** :
-1. Vérifiez que le serveur est bien démarré (Terminal 1)
-2. Le serveur doit afficher `Server running on 0.0.0.0:80`
-3. Vérifiez que le port dans `Main.kt` correspond (port 80 par défaut)
-
-#### Problème : Le jeu ne démarre pas
-
-**Solutions** :
-1. Vérifiez que JavaFX est installé : `java --list-modules | grep javafx`
-2. Recompilez le projet : `./gradlew clean build`
-3. Vérifiez que le serveur tourne dans l'autre terminal
-
----
-
-### 🔧 Configuration réseau (optionnel)
-
-Si vous êtes sur le réseau de l'IUT, décommentez les lignes de proxy dans `gradle.properties` :
-
-```properties
-systemProp.http.proxyHost=srv-proxy-etu-2.iut-nantes.univ-nantes.prive
-systemProp.http.proxyPort=3128
-systemProp.https.proxyHost=srv-proxy-etu-2.iut-nantes.univ-nantes.prive
-systemProp.https.proxyPort=3128
-```
-
----
-
-## 🎮 Comment jouer
-
-1. **Créer un joueur** : Entrez votre pseudo
-2. **Créer ou rejoindre une partie** : Créez une nouvelle partie ou rejoignez une partie existante
-3. **Choisir votre personnage secret** : Sélectionnez le personnage que votre adversaire devra deviner
-4. **Jouer** : Posez des questions et éliminez les personnages pour trouver celui de votre adversaire
-5. **Gagner** : Soyez le premier à deviner le personnage secret !
-
----
 
 ## 📚 Documentation
 

@@ -29,13 +29,20 @@ class ControleurCreerPartie(
 
                 val etapeActuelle = modele.partieEnCours?.etat?.etape?.name
                 if (etapeActuelle == "INITIALISATION") {
+                    // Annuler le timer AVANT de changer de scène
+                    timer.cancel()
+
                     Platform.runLater {
 
                         val vueJeu = VueChoisirPersonnage(modele)
                         val scene = Scene(vueJeu, 1920.0, 1080.0)
 
                         val selfGrille = modele.partieEnCours?.selfGrille
-                        vueJeu.updateCharacterGrid(selfGrille)
+                        // Ne pas appeler updateCharacterGrid ici car les grilles sont déjà chargées
+                        // par rafraichirEtat() juste au-dessus
+                        if (selfGrille != null && selfGrille.personnages.isNotEmpty()) {
+                            vueJeu.updateCharacterGrid(selfGrille)
+                        }
 
                         vueJeu.footer.validateButton.setOnAction {
                             val selectedCharacter = vueJeu.getSelectedCharacter()
@@ -56,7 +63,6 @@ class ControleurCreerPartie(
                         }
 
                         stage.scene = scene
-                        timer.cancel()
                     }
                 }
             }
