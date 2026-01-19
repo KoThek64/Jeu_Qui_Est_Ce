@@ -1,33 +1,69 @@
-# IntelliJ IDEA
-.idea/
-*.iml
-*.iws
-out/
-.idea_modules/
-
-# Build output
-/build/
-*/build/
-
+# ===================================
 # Gradle
+# ===================================
 .gradle/
 build/
 !gradle/wrapper/gradle-wrapper.jar
 gradle-app.setting
 
+# ===================================
+# IntelliJ IDEA
+# ===================================
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+.idea_modules/
+
+# ===================================
+# VS Code
+# ===================================
+.vscode/
+.history/
+
+# ===================================
+# Eclipse
+# ===================================
+.classpath
+.project
+.settings/
+bin/
+
+# ===================================
+# Kotlin
+# ===================================
+.kotlin/
+
+# ===================================
 # Logs
+# ===================================
 *.log
+logs/
 
+# ===================================
 # OS-specific files
+# ===================================
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
+Desktop.ini
 
-# User-specific files
+# ===================================
+# Temporary files
+# ===================================
 *.swp
 *.swo
 *~
+*.tmp
+*.bak
 
-.gradle/buildOutputCleanup/cache.properties
-.gradle
-
+# ===================================
+# Application specific
+# ===================================
 .salive
+
