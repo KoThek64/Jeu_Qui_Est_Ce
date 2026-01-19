@@ -149,66 +149,134 @@ cd 2025.sae201.22
 ./gradlew build
 ```
 
+---
+
 ### 🎮 Lancer le jeu
 
-Le jeu fonctionne en architecture client-serveur. Vous devez démarrer le serveur avant de lancer le client.
+Le jeu fonctionne en **architecture client-serveur**. Vous devez démarrer le serveur avant de lancer le client.
 
-#### Étape 1 : Démarrer le serveur
+#### 📋 Configuration initiale (à faire une seule fois)
 
-**Dans un premier terminal** :
+Créer le lien symbolique pour les ressources du serveur :
 
 ```bash
-java -jar libs/server-all.jar
+ln -s resources/resources files
 ```
 
-Le serveur démarre sur `http://localhost:8080`
+#### 🖥️ Étape 1 : Démarrer le serveur
 
-> ⚠️ **Important** : Le serveur doit rester actif pendant toute la durée de jeu !
+**Ouvrez un terminal** et exécutez :
 
-#### Étape 2 : Lancer le client (le jeu)
+**Linux/Mac** :
+```bash
+# Option A : Avec le script (recommandé)
+./start-server.sh
 
-**Dans un second terminal** :
+# Option B : Manuellement
+sudo java -jar libs/server-all.jar
+```
 
+**Windows** :
+```bash
+# En tant qu'administrateur
+java -jar libs\server-all.jar
+```
+
+Le serveur démarre sur `http://localhost:80`
+
+> 💡 **Note importante** : Le script demandera votre mot de passe `sudo` car le serveur utilise le port 80 (privilèges administrateur requis sur Linux/Mac)
+
+Vous devriez voir :
+```
+***** Server running on 0.0.0.0:80 using resources directory: files
+```
+
+> ⚠️ **Le serveur doit rester actif** pendant toute la durée du jeu ! Ne fermez pas ce terminal.
+
+#### 🎮 Étape 2 : Lancer le client (le jeu)
+
+**Ouvrez un SECOND terminal** et exécutez :
+
+**Linux/Mac** :
 ```bash
 ./gradlew run
 ```
 
-Ou pour Windows :
-
+**Windows** :
 ```bash
 gradlew.bat run
 ```
 
-L'interface graphique du jeu s'ouvrira automatiquement.
+🎉 **L'interface graphique du jeu s'ouvre automatiquement !**
 
-#### 🎯 Pour jouer à plusieurs
+---
+
+### 🌐 Pour jouer à plusieurs
 
 Chaque joueur doit :
 1. Lancer son propre client avec `./gradlew run` (sur son ordinateur)
-2. Se connecter au même serveur
-3. Les deux joueurs peuvent être sur le même réseau local ou sur Internet si le serveur est accessible
+2. Se connecter au même serveur (modifier l'IP dans `src/main/kotlin/Main.kt` si nécessaire)
+3. Les joueurs peuvent être sur le même réseau local ou sur Internet si le serveur est accessible
 
-### Tests
+---
+
+### 🧪 Tests
 
 ```bash
 # Exécuter tous les tests
 ./gradlew test
 
-# Exécuter les tests avec le serveur démarré pour avoir tous les tests qui passent
-# Terminal 1 : java -jar libs/server-all.jar
+# Les tests nécessitent le serveur actif pour tous passer :
+# Terminal 1 : sudo java -jar libs/server-all.jar
 # Terminal 2 : ./gradlew test
 
 # Voir le rapport de tests dans le navigateur
 xdg-open build/reports/tests/test/index.html
 ```
 
-### Compilation sans exécuter les tests
+> 💡 **Note** : Les tests peuvent échouer si le serveur n'est pas démarré, mais le build réussira quand même grâce à `ignoreFailures = true`.
 
-Si vous voulez juste compiler sans lancer les tests :
+---
+
+### 📦 Compilation sans exécuter les tests
 
 ```bash
 ./gradlew assemble
 ```
+
+---
+
+### 🔧 Dépannage
+
+#### Problème : "Permission non accordée" sur le port 80
+
+**Solution** : Utilisez `sudo` pour lancer le serveur
+```bash
+sudo java -jar libs/server-all.jar
+```
+
+#### Problème : "FileNotFoundException: files/but1.csv"
+
+**Solution** : Créez le lien symbolique
+```bash
+ln -s resources/resources files
+```
+
+#### Problème : "Connexion refusée" ou "ConnectTimeoutException"
+
+**Solutions** :
+1. Vérifiez que le serveur est bien démarré (Terminal 1)
+2. Le serveur doit afficher `Server running on 0.0.0.0:80`
+3. Vérifiez que le port dans `Main.kt` correspond (port 80 par défaut)
+
+#### Problème : Le jeu ne démarre pas
+
+**Solutions** :
+1. Vérifiez que JavaFX est installé : `java --list-modules | grep javafx`
+2. Recompilez le projet : `./gradlew clean build`
+3. Vérifiez que le serveur tourne dans l'autre terminal
+
+---
 
 ### 🔧 Configuration réseau (optionnel)
 

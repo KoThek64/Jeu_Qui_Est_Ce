@@ -31,6 +31,10 @@ javafx {
     modules("javafx.controls", "javafx.fxml")
 }
 
+application {
+    mainClass.set("MainKt")
+}
+
 
 tasks.test {
     useJUnitPlatform()

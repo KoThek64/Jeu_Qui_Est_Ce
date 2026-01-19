@@ -9,7 +9,7 @@ import vue.VueCreerJoueur
 class MainQuiEstCe : Application() {
     override fun start(stage: Stage) {
 
-        val client = QuiEstCeClient("172.26.69.145", 8080)
+        val client = QuiEstCeClient("localhost", 80)
         val modele = Modele(client)
 
         val vue = VueCreerJoueur()
